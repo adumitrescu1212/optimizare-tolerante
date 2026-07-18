@@ -71,29 +71,17 @@ LANG = {
         'mc_defects': "Defecte găsite",
         'mc_prob': "Probabilitate de defect",
         'mc_dist': "Distribuție",
-        'diagram_header': "🏗️ Arhitectura sistemului",
-        'diagram_code': """
-        ┌─────────────────────────────────────────────────┐
-        │              SISTEM MULTI-AGENT                  │
-        │                                                  │
-        │  ┌──────────────────┐   ┌──────────────────┐   │
-        │  │ AGENT PROIECTANT │   │   AGENT TESTER    │   │
-        │  │                  │   │                   │   │
-        │  │ "Vreau toleranțe │──▶│ "Găsesc defecte?" │   │
-        │  │  cât mai largi"  │◀──│                   │   │
-        │  │                  │   │  ┌─────────────┐  │   │
-        │  │ Cost = Σ 1/tᵢ   │   │  │ NEURON FRACȚ.│  │   │
-        │  └──────────────────┘   │  │ α = 0.7     │  │   │
-        │                         │  │ β ∈ (0,1)   │  │   │
-        │                         │  └─────────────┘  │   │
-        │                         └──────────────────┘   │
-        │                                  │              │
-        │                         ┌────────▼────────┐    │
-        │                         │ MODEL MATEMATIC  │    │
-        │                         │ f(X) = min Jocᵢ  │    │
-        │                         │ 64 colțuri       │    │
-        │                         └─────────────────┘    │
-        └─────────────────────────────────────────────────┘
+        'how_header': "🏗️ Cum funcționează sistemul",
+        'how_text': """
+        Sistemul este format din două componente software care colaborează pentru a găsi toleranțele optime:
+        
+        **🔵 Agentul Proiectant** pornește cu toleranțe foarte largi (cost minim) și le ajustează pe baza feedback-ului primit. Când Testerul găsește un defect, Proiectantul strânge toleranța la cota respectivă. Când totul e în regulă, încearcă să lărgească toleranțele pentru a reduce costul.
+        
+        **🔴 Agentul Tester** verifică fiecare set de toleranțe propus. Folosește o metodă matematică exactă: testează toate cele 64 de combinații extreme posibile (fiecare cotă la minim sau maxim). Dacă găsește o combinație care produce interferență, raportează DEFECT și indică exact care cotă e vinovată.
+        
+        **🧠 Neuronul fracționar** acționează ca un manager de risc. Are memorie lungă — își amintește ce s-a întâmplat în iterațiile trecute. Când Testerul găsește multe defecte consecutiv, neuronul devine "stresat" (Beta ~0.85) și Proiectantul strânge toleranțele agresiv. Când sistemul se stabilizează, neuronul se relaxează (Beta ~0.15) și ajustările devin fine și precise.
+        
+        **📐 Modelul matematic** calculează jocul dintre știfturi și găuri pe baza geometriei reale a ansamblului proiectat în SolidWorks.
         """
     },
     'en': {
@@ -159,31 +147,17 @@ LANG = {
         'mc_defects': "Defects Found",
         'mc_prob': "Defect Probability",
         'mc_dist': "Distribution",
-        'diagram_header': "🏗️ System Architecture",
-        'diagram_code': """
-        ┌─────────────────────────────────────────────────┐
-        │              MULTI-AGENT SYSTEM                  │
-        │                                                  │
-        │  ┌──────────────────┐   ┌──────────────────┐   │
-        │  │  DESIGNER AGENT  │   │  TESTER AGENT    │   │
-        │  │                  │   │                   │   │
-        │  │ "Widen tolerances│──▶│ "Find defects?"   │   │
-        │  │  to reduce cost" │◀──│                   │   │
-        │  │                  │   │  ┌─────────────┐  │   │
-        │  │ Cost = Σ 1/tᵢ   │   │  │ FRACTIONAL   │  │   │
-        │  └──────────────────┘   │  │ NEURON       │  │   │
-        │                         │  │ α = 0.7     │  │   │
-        │                         │  │ β ∈ (0,1)   │  │   │
-        │                         │  └─────────────┘  │   │
-        │                         └──────────────────┘   │
-        │                                  │              │
-        │                         ┌────────▼────────┐    │
-        │                         │ MATHEMATICAL     │    │
-        │                         │ MODEL            │    │
-        │                         │ f(X) = min Gapᵢ  │    │
-        │                         │ 64 corners       │    │
-        │                         └─────────────────┘    │
-        └─────────────────────────────────────────────────┘
+        'how_header': "🏗️ How the System Works",
+        'how_text': """
+        The system consists of two software components that collaborate to find the optimal tolerances:
+        
+        **🔵 The Designer Agent** starts with very wide tolerances (minimum cost) and adjusts them based on feedback. When the Tester finds a defect, the Designer tightens the tolerance for that dimension. When everything is fine, it tries to widen tolerances to reduce cost.
+        
+        **🔴 The Tester Agent** checks each proposed tolerance set. It uses an exact mathematical method: testing all 64 possible extreme combinations (each dimension at minimum or maximum). If it finds a combination that causes interference, it reports DEFECT and indicates exactly which dimension is at fault.
+        
+        **🧠 The Fractional Neuron** acts as a risk manager. It has long memory — it remembers what happened in past iterations. When the Tester finds many consecutive defects, the neuron becomes "stressed" (Beta ~0.85) and the Designer tightens aggressively. When the system stabilizes, the neuron relaxes (Beta ~0.15) and adjustments become fine and precise.
+        
+        **📐 The Mathematical Model** calculates the gap between pins and holes based on the real geometry of the assembly designed in SolidWorks.
         """
     }
 }
@@ -199,9 +173,9 @@ t = LANG[st.session_state.lang]
 # ---------- Sidebar ----------
 with st.sidebar:
     col_lang1, col_lang2, col_theme = st.columns(3)
-    if col_lang1.button("🇷🇴", use_container_width=True):
+    if col_lang1.button("RO", use_container_width=True):
         st.session_state.lang = 'ro'
-    if col_lang2.button("🇺🇸", use_container_width=True):
+    if col_lang2.button("EN", use_container_width=True):
         st.session_state.lang = 'en'
     theme_icon = "🌙" if st.session_state.theme == 'light' else "☀️"
     if col_theme.button(theme_icon, use_container_width=True):
@@ -233,10 +207,10 @@ if st.session_state.theme == 'dark':
 st.title(t['title'])
 st.subheader(t['subtitle'])
 
-# ---------- Diagramă (doar înainte de rulare) ----------
+# ---------- Cum funcționează (doar înainte de rulare) ----------
 if not run:
-    st.header(t['diagram_header'])
-    st.code(t['diagram_code'], language=None)
+    st.header(t['how_header'])
+    st.markdown(t['how_text'])
 
 # ---------- Optimizare ----------
 if run:
