@@ -385,6 +385,8 @@ with tab2:
             m_iter.metric(t['iterations'], f"{iteratii}")
             m_cost.metric(t['cost_opt'], f"{cost:.2f}")
             m_beta.metric("Beta", f"{beta:.3f}")
+
+            progress_bar.progress(min(iteratii / 300, 1.0))
             
             if rezultat == "DEFECT":
                 fara_defect = 0
