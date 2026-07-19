@@ -403,20 +403,20 @@ with tab2:
         })
         st.dataframe(df_critic, use_container_width=True, hide_index=True)
         
-        if st.session_state.lang == 'ro':
-            st.markdown(f"""
-            > **Interpretare:** Tabelul arata combinatia exacta de dimensiuni care produce cel mai mic joc 
-            (joc = **{joc_crit:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea 
-            experimentala. Coloana *Directie* indica daca dimensiunea trebuie setata la maximul sau minimul 
-            tolerantei. Cota **{cota_crit + 1}** are cea mai mare abatere relativa.
-            """)
+                if st.session_state.lang == 'ro':
+            st.markdown(
+                "> **Interpretare:** Tabelul arata combinatia exacta de dimensiuni care produce cel mai mic joc "
+                f"(joc = **{joc_crit:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea "
+                "experimentala. Coloana *Directie* indica daca dimensiunea trebuie setata la maximul sau minimul "
+                f"tolerantei. Cota **{cota_crit + 1}** are cea mai mare abatere relativa."
+            )
         else:
-            st.markdown(f"""
-            > **Interpretation:** The table shows the exact dimension combination producing the smallest gap 
-            (gap = **{joc_crit:.4f} mm**). These values should be entered in SolidWorks for experimental 
-            validation. The *Direction* column indicates whether the dimension is at maximum or minimum 
-            tolerance. Dimension **{cota_crit + 1}** has the largest relative deviation.
-            """)
+            st.markdown(
+                "> **Interpretation:** The table shows the exact dimension combination producing the smallest gap "
+                f"(gap = **{joc_crit:.4f} mm**). These values should be entered in SolidWorks for experimental "
+                "validation. The *Direction* column indicates whether the dimension is at maximum or minimum "
+                f"tolerance. Dimension **{cota_crit + 1}** has the largest relative deviation."
+            )
         
         csv = pd.DataFrame(istoric).to_csv(index=False).encode('utf-8')
         st.download_button(t['export'], csv, 'istoric_optimizare.csv', 'text/csv')
