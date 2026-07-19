@@ -384,7 +384,7 @@ with tab2:
         })
         st.dataframe(df_comp, use_container_width=True, hide_index=True)
         
-           # ---------- Combinația critică ----------
+         # ---------- Combinația critică ----------
         st.divider()
         st.header("🔍 " + ("Combinația critică (cel mai rău caz)" if st.session_state.lang == 'ro' else "Critical Combination (Worst Case)"))
         
@@ -403,21 +403,23 @@ with tab2:
         })
         st.dataframe(df_critic, use_container_width=True, hide_index=True)
         
+        # Extragem cota într-o variabilă sigură pentru afișare
+        cota_afisata = cota_crit + 1 if cota_crit is not None else "-"
+        
         if st.session_state.lang == 'ro':
             st.markdown(
                 "> **Interpretare:** Tabelul arata combinatia exacta de dimensiuni care produce cel mai mic joc "
                 f"(joc = **{joc_crit:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea "
                 "experimentala. Coloana *Directie* indica daca dimensiunea trebuie setata la maximul sau minimul "
-                f"tolerantei. Cota **{cota_crit + 1}** are cea mai mare abatere relativa."
+                f"tolerantei. Cota **{cota_afisata}** este cea mai solicitată în această configurație."
             )
         else:
             st.markdown(
                 "> **Interpretation:** The table shows the exact dimension combination producing the smallest gap "
                 f"(gap = **{joc_crit:.4f} mm**). These values should be entered in SolidWorks for experimental "
                 "validation. The *Direction* column indicates whether the dimension is at maximum or minimum "
-                f"tolerance. Dimension **{cota_crit + 1}** has the largest relative deviation."
+                f"tolerance. Dimension **{cota_afisata}** is the most stressed in this configuration."
             )
-        
         csv = pd.DataFrame(istoric).to_csv(index=False).encode('utf-8')
         st.download_button(t['export'], csv, 'istoric_optimizare.csv', 'text/csv')
         st.success("👈 " + ("Mergi la tab-ul Grafice." if st.session_state.lang == 'ro' else "Go to Charts tab."))
