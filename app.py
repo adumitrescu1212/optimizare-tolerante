@@ -164,10 +164,10 @@ with tab1:
             </div>
             """, unsafe_allow_html=True)
         with col2:
-                       st.markdown("""
-            <div style="text-align: center;">
+            st.markdown("""
+            <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
                 <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
-                     width="380" 
+                     width="500" 
                      style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
             </div>
             """, unsafe_allow_html=True)
@@ -187,10 +187,10 @@ with tab1:
             </div>
             """, unsafe_allow_html=True)
         with col2:
-                        st.markdown("""
-            <div style="text-align: center;">
+            st.markdown("""
+            <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
                 <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
-                     width="380" 
+                     width="500" 
                      style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
             </div>
             """, unsafe_allow_html=True)
