@@ -624,56 +624,147 @@ with tab3:
 # ================================================================
 with tab4:
     st.title("📖 " + ("Despre proiect" if st.session_state.lang == 'ro' else "About the Project"))
+    
     if st.session_state.lang == 'ro':
         st.markdown("""
         ### 🎯 Ce este acest proiect?
-        Un **sistem inteligent de optimizare a toleranțelor** pentru ansambluri mecanice, dezvoltat
-        la intersecția dintre **inteligența artificială**, **ingineria mecanică** și **calculul fracționar**.
+        
+        Acest proiect reprezinta un **sistem inteligent de optimizare a tolerantelor** pentru ansambluri mecanice,
+        dezvoltat la intersectia dintre **inteligenta artificiala**, **ingineria mecanica** si **calculul fractionar**.
+        
+        Sistemul utilizeaza o **arhitectura multi-agent** in care doi agenti software — un Proiectant si un Tester —
+        interactioneaza iterativ pentru a gasi automat cel mai ieftin set de tolerante care garanteaza functionalitatea
+        unui ansamblu mecanic.
         
         ---
+        
         ### 🔥 Ce ne-a motivat?
-        Toleranțarea este o provocare fundamentală: toleranțe strânse = calitate + cost mare,
-        toleranțe largi = economic + risc. Metodele tradiționale tratează optimizarea și analiza separat.
-        Am vrut un sistem care să le integreze dinamic.
+        
+        In ingineria mecanica, **toleranțarea** este o provocare fundamentala. Pe de o parte, tolerantele stranse
+        garanteaza calitatea dar cresc exploziv costurile de fabricatie. Pe de alta parte, tolerantele largi reduc
+        costurile dar risca sa produca piese care nu se potrivesc.
+        
+        Metodele traditionale (Worst-Case, Monte Carlo, algoritmi genetici) trateaza optimizarea si analiza ca
+        **procese separate**. Am vrut sa cream un sistem care sa le **integreze dinamic**, permitand celor doi
+        agenti sa invete unul de la celalalt in timp real.
         
         ---
+        
         ### ✨ Elemente de originalitate
-        1. **Abordare adversială pentru toleranțe** — premieră în domeniu
-        2. **Neuron fracționar ca manager de risc** — contribuție originală
-        3. **Garanție matematică absolută** — teorema colțurilor (64 verificări)
-        4. **Flux complet pe resurse minime** — Python + SolidWorks Student
+        
+        1. **Abordare adversiala pentru tolerante** — In literatura de specialitate, optimizarea tolerantelor
+        utilizeaza predominant algoritmi genetici sau metode deterministe. Utilizarea unui sistem multi-agent
+        cu dinamica adversiala (un agent propune, celalalt ataca) este o **abordare noua** in acest domeniu.
+        
+        2. **Neuron fractionar ca manager de risc** — Am introdus un neuron cu dinamica fractionara, bazat
+        pe derivata **Grunwald-Letnikov**, care actioneaza ca un **controler adaptiv** al ratei de ajustare.
+        Memoria lunga oferita de calculul fractionar permite sistemului sa fie agresiv in faza de corectie
+        si precaut in faza de optimizare fina.
+        
+        3. **Garantie matematica absoluta** — Am demonstrat o **teorema de localizare a minimului** care
+        stabileste ca cel mai rau caz se gaseste intotdeauna la unul dintre cele 64 de colturi ale domeniului
+        de toleranta. Aceasta elimina necesitatea metodelor iterative si ofera **siguranta absoluta** ca
+        niciun defect nu scapa nedetectat.
+        
+        4. **Flux complet pe resurse minime** — Intregul sistem este implementat in **Python** (open-source)
+        si validat pe un model CAD real in **SolidWorks Student** (licenta educationala gratuita), demonstrand
+        ca o analiza avansata a tolerantelor poate fi realizata fara investitii in software comercial.
         
         ---
-        ### 🏗️ Cum funcționează
-        **🔵 Agentul Proiectant** ajustează toleranțele. **🔴 Agentul Tester** verifică 64 de colțuri.
-        **🧠 Neuronul fracționar** controlează agresivitatea cu memorie lungă.
+        
+        ### 🏗️ Cum functioneaza — pe scurt
+        
+        **🔵 Agentul Proiectant** porneste cu tolerante foarte largi (cost minim) si le ajusteaza pe baza
+        feedback-ului. Cand Testerul gaseste un defect, Proiectantul strange toleranta la cota respectiva.
+        Cand totul e in regula, incearca sa largeasca tolerantele pentru a reduce costul.
+        
+        **🔴 Agentul Tester** verifica fiecare set de tolerante testand **toate cele 64 de combinatii extreme**
+        posibile. Aceasta ofera o garantie matematica absoluta: daca Testerul spune OK, atunci nu exista
+        nicio combinatie de dimensiuni in domeniul de toleranta care sa produca interferenta.
+        
+        **🧠 Neuronul fractionar** controleaza **cat de agresiv** se fac ajustarile. Are memorie lunga asupra
+        istoricului interactiunii: cand Testerul gaseste constant defecte, neuronul e "stresat" (Beta ~0.85)
+        si Proiectantul strange agresiv. Cand sistemul se stabilizeaza, neuronul se relaxeaza (Beta ~0.15)
+        si ajustarile devin fine si precise.
+        
+        ---
+        
+        ### 🎯 Rezultatul
+        
+        Sistemul produce **tolerantele optime** — cel mai ieftin set care garanteaza ca piesele se vor asambla
+        corect, indiferent de variatiile dimensionale inerente fabricatiei. Convergenta se atinge in aproximativ
+        100–110 iteratii (sub o secunda pe un laptop standard).
         """)
     else:
         st.markdown("""
         ### 🎯 What is this project?
-        An **intelligent tolerance optimization system** developed at the intersection of
-        **artificial intelligence**, **mechanical engineering**, and **fractional calculus**.
+        
+        This project represents an **intelligent tolerance optimization system** for mechanical assemblies,
+        developed at the intersection of **artificial intelligence**, **mechanical engineering**, and
+        **fractional calculus**.
+        
+        The system uses a **multi-agent architecture** where two software agents — a Designer and a Tester —
+        interact iteratively to automatically find the cheapest tolerance set that guarantees the functionality
+        of a mechanical assembly.
         
         ---
+        
         ### 🔥 What motivated us?
-        Tolerancing is a fundamental challenge. We wanted a system that dynamically integrates
-        optimization and analysis.
+        
+        In mechanical engineering, **tolerancing** is a fundamental challenge. Tight tolerances guarantee
+        quality but explosively increase manufacturing costs. Wide tolerances reduce costs but risk
+        producing parts that don't fit together.
+        
+        Traditional methods (Worst-Case, Monte Carlo, genetic algorithms) treat optimization and analysis
+        as **separate processes**. We wanted to create a system that **dynamically integrates** them,
+        allowing the two agents to learn from each other in real time.
         
         ---
+        
         ### ✨ Original Contributions
-        1. **Adversarial approach for tolerances** — novel in the field
-        2. **Fractional neuron as risk manager** — original contribution
-        3. **Absolute mathematical guarantee** — corner theorem (64 checks)
-        4. **Complete low-cost workflow** — Python + SolidWorks Student
+        
+        1. **Adversarial approach for tolerances** — Using a multi-agent system with adversarial dynamics
+        (one agent proposes, the other attacks) is a **novel approach** in tolerance optimization, where
+        genetic algorithms and deterministic methods dominate.
+        
+        2. **Fractional neuron as risk manager** — We introduced a neuron with fractional dynamics, based
+        on the **Grunwald-Letnikov** derivative, acting as an **adaptive controller** of the adjustment rate.
+        The long memory provided by fractional calculus allows the system to be aggressive in the correction
+        phase and cautious in the fine-tuning phase.
+        
+        3. **Absolute mathematical guarantee** — We proved a **corner localization theorem** establishing
+        that the worst case is always at one of the 64 vertices of the tolerance domain. This eliminates
+        the need for iterative methods and provides **absolute certainty** that no defect escapes detection.
+        
+        4. **Complete low-cost workflow** — The entire system is implemented in **Python** (open-source)
+        and validated on a real CAD model in **SolidWorks Student** (free educational license), demonstrating
+        that advanced tolerance analysis can be performed without investment in commercial software.
         
         ---
-        ### 🏗️ How It Works
-        **🔵 Designer Agent** adjusts tolerances. **🔴 Tester Agent** checks 64 corners.
-        **🧠 Fractional Neuron** controls aggressiveness with long memory.
+        
+        ### 🏗️ How It Works — in brief
+        
+        **🔵 The Designer Agent** starts with very wide tolerances (minimum cost) and adjusts them based on
+        feedback. When the Tester finds a defect, the Designer tightens the tolerance for that dimension.
+        When everything is fine, it tries to widen tolerances to reduce cost.
+        
+        **🔴 The Tester Agent** checks each tolerance set by testing **all 64 extreme combinations**.
+        This provides an absolute mathematical guarantee: if the Tester says OK, there is no dimension
+        combination within the tolerance domain that produces interference.
+        
+        **🧠 The Fractional Neuron** controls **how aggressive** the adjustments are. It has long memory
+        of the interaction history: when the Tester consistently finds defects, the neuron is "stressed"
+        (Beta ~0.85) and the Designer tightens aggressively. When the system stabilizes, the neuron
+        relaxes (Beta ~0.15) and adjustments become fine and precise.
+        
+        ---
+        
+        ### 🎯 The Result
+        
+        The system produces the **optimal tolerances** — the cheapest set that guarantees the parts will
+        assemble correctly, regardless of manufacturing variations. Convergence is reached in approximately
+        100–110 iterations (under one second on a standard laptop).
         """)
-
-# ================================================================
-# TAB 5: MATEMATICA
 # ================================================================
 # TAB 5: MATEMATICA
 # ================================================================
