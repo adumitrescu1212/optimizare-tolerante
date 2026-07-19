@@ -149,58 +149,62 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4
 # ================================================================
 with tab1:
     if st.session_state.lang == 'ro':
-        st.markdown("""
-        <div style="text-align: center; padding: 20px 0 30px 0;">
-            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚙️ Sistem Multi-Agent cu Neuron Fracționar</h1>
-            <p style="font-size: 1.2rem; color: #666;">Optimizarea toleranțelor pentru ansambluri mecanice</p>
-        </div>
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 30px; color: white; margin-bottom: 25px;">
-            <h3 style="color: white; margin-top: 0;">🎯 Rezumat</h3>
-            <p style="font-size: 1.05rem; line-height: 1.7;">
-            Acest proiect propune o <strong>metodă nouă</strong> de optimizare a toleranțelor dimensionale,
-            bazată pe o <strong>arhitectură multi-agent adversială</strong> cu <strong>neuron fracționar</strong>.
-            Doi agenți software — un Proiectant și un Tester — interacționează iterativ pentru a găsi
-            <strong>cel mai ieftin set de toleranțe</strong> care garantează funcționalitatea ansamblului.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.markdown("""
+            <h1 style="font-size: 2.2rem; margin-top: 1rem;">⚙️ Sistem Multi-Agent cu Neuron Fractionar</h1>
+            <p style="font-size: 1.1rem; color: #666;">Optimizarea tolerantelor pentru ansambluri mecanice</p>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin-top: 15px;">
+                <p style="font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                Acest proiect propune o <strong>metoda noua</strong> de optimizare a tolerantelor,
+                bazata pe o <strong>arhitectura multi-agent adversiala</strong> cu <strong>neuron fractionar</strong>.
+                Doi agenti software interactioneaza iterativ pentru a gasi
+                <strong>cel mai ieftin set de tolerante</strong> care garanteaza functionalitatea.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.image("ansamblu.gif", width=380)
     else:
-        st.markdown("""
-        <div style="text-align: center; padding: 20px 0 30px 0;">
-            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">⚙️ Multi-Agent System with Fractional Neuron</h1>
-            <p style="font-size: 1.2rem; color: #666;">Tolerance Optimization for Mechanical Assemblies</p>
-        </div>
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; padding: 30px; color: white; margin-bottom: 25px;">
-            <h3 style="color: white; margin-top: 0;">🎯 Abstract</h3>
-            <p style="font-size: 1.05rem; line-height: 1.7;">
-            This project proposes a <strong>novel method</strong> for dimensional tolerance optimization,
-            based on an <strong>adversarial multi-agent architecture</strong> with a <strong>fractional neuron</strong>.
-            Two software agents — a Designer and a Tester — interact iteratively to find the
-            <strong>cheapest tolerance set</strong> that guarantees assembly functionality.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        col1, col2 = st.columns([1, 1])
+        with col1:
+            st.markdown("""
+            <h1 style="font-size: 2.2rem; margin-top: 1rem;">⚙️ Multi-Agent System with Fractional Neuron</h1>
+            <p style="font-size: 1.1rem; color: #666;">Tolerance Optimization for Mechanical Assemblies</p>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin-top: 15px;">
+                <p style="font-size: 0.95rem; line-height: 1.6; margin: 0;">
+                This project proposes a <strong>novel method</strong> for dimensional tolerance optimization,
+                based on an <strong>adversarial multi-agent architecture</strong> with a <strong>fractional neuron</strong>.
+                Two software agents interact iteratively to find the
+                <strong>cheapest tolerance set</strong> that guarantees assembly functionality.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.image("ansamblu.gif", width=380)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown("""
         <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
             <h2 style="margin: 0; color: #667eea;">2</h2>
-            <p style="margin: 5px 0 0 0; color: #555;">Agenți software autonomi</p>
+            <p style="margin: 5px 0 0 0; color: #555;">Agenti software autonomi</p>
         </div>
         """, unsafe_allow_html=True)
     with col2:
         st.markdown("""
         <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
             <h2 style="margin: 0; color: #764ba2;">64</h2>
-            <p style="margin: 5px 0 0 0; color: #555;">Colțuri verificate exhaustiv</p>
+            <p style="margin: 5px 0 0 0; color: #555;">Colturi verificate exhaustiv</p>
         </div>
         """, unsafe_allow_html=True)
     with col3:
         st.markdown("""
         <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
             <h2 style="margin: 0; color: #e74c3c;">< 1s</h2>
-            <p style="margin: 5px 0 0 0; color: #555;">Timp de execuție</p>
+            <p style="margin: 5px 0 0 0; color: #555;">Timp de executie</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -211,10 +215,10 @@ with tab1:
         if st.session_state.lang == 'ro':
             st.markdown("""
             ### 🔴 Problema
-            În fabricația mecanică, **toleranțele dimensionale** reprezintă un compromis fundamental:
-            - **Toleranțe strânse** garantează asamblarea, dar costă foarte mult
-            - **Toleranțe largi** sunt economice, dar riscă rebuturi
-            Metodele tradiționale tratează optimizarea și analiza ca procese separate.
+            In fabricatia mecanica, **tolerantele dimensionale** reprezinta un compromis fundamental:
+            - **Tolerante stranse** garanteaza asamblarea, dar costa foarte mult
+            - **Tolerante largi** sunt economice, dar risca rebuturi
+            Metodele traditionale trateaza optimizarea si analiza ca procese separate.
             """)
         else:
             st.markdown("""
@@ -227,11 +231,11 @@ with tab1:
     with col2:
         if st.session_state.lang == 'ro':
             st.markdown("""
-            ### 🟢 Soluția noastră
-            Un **sistem multi-agent** cu doi roboți software care învață unul de la celălalt:
-            - **🔵 Proiectantul** vrea toleranțe cât mai largi (cost minim)
-            - **🔴 Testerul** atacă fiecare propunere, căutând vulnerabilități
-            - **🧠 Neuronul fracționar** controlează adaptiv agresivitatea
+            ### 🟢 Solutia noastra
+            Un **sistem multi-agent** cu doi roboti software care invata unul de la celalalt:
+            - **🔵 Proiectantul** vrea tolerante cat mai largi (cost minim)
+            - **🔴 Testerul** ataca fiecare propunere, cautand vulnerabilitati
+            - **🧠 Neuronul fractionar** controleaza adaptiv agresivitatea
             """)
         else:
             st.markdown("""
@@ -250,20 +254,20 @@ with tab1:
         st.markdown("### 🔬 Research Areas Involved")
     
     col1, col2, col3, col4 = st.columns(4)
-    with col1: st.markdown("**🤖 Inteligență artificială**\nSisteme multi-agent")
-    with col2: st.markdown("**📐 Calcul fracționar**\nDerivata Grünwald-Letnikov")
-    with col3: st.markdown("**⚡ Optimizare**\nCercetări operaționale")
-    with col4: st.markdown("**🔧 Inginerie mecanică**\nSolidWorks CAD")
+    with col1: st.markdown("**🤖 Inteligenta artificiala**\nSisteme multi-agent")
+    with col2: st.markdown("**📐 Calcul fractionar**\nDerivata Grunwald-Letnikov")
+    with col3: st.markdown("**⚡ Optimizare**\nCercetari operationale")
+    with col4: st.markdown("**🔧 Inginerie mecanica**\nSolidWorks CAD")
     
     st.divider()
     
     if st.session_state.lang == 'ro':
         st.info("""
-        ### 🚀 Cum începi?
-        1. **Configurează parametrii** în panoul din stânga
-        2. **Accesează tab-ul Optimizare** și apasă **Rulează optimizarea**
-        3. **Explorează rezultatele** — toleranțe, grafice, Monte Carlo, comparații
-        4. **Studiază matematica** din spatele sistemului în tab-ul dedicat
+        ### 🚀 Cum incepi?
+        1. **Configureaza parametrii** in panoul din stanga
+        2. **Acceseaza tab-ul Optimizare** si apasa **Ruleaza optimizarea**
+        3. **Exploreaza rezultatele** — tolerante, grafice, Monte Carlo, comparatii
+        4. **Studiaza matematica** din spatele sistemului in tab-ul dedicat
         """)
     else:
         st.info("""
@@ -273,7 +277,6 @@ with tab1:
         3. **Explore the results** — tolerances, charts, Monte Carlo, comparisons
         4. **Study the mathematics** behind the system in the dedicated tab
         """)
-
 # ================================================================
 # TAB 2: OPTIMIZARE
 # ================================================================
