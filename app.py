@@ -711,3 +711,233 @@ with tab5:
             <strong>💻 Implementare:</strong> <code>model_matematic.py</code> → <code>calculeaza_subgradient(X)</code>
         </div>
         """, unsafe_allow_html=True)
+    # ---------- TAB 5.4: TEOREMA COLTURILOR ----------
+    with tm4:
+        st.markdown("### 4. " + ("Teorema de localizare a minimului" if st.session_state.lang == 'ro' else "Corner Localization Theorem"))
+        if st.session_state.lang == 'ro':
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Garantarea matematica a gasirii celui mai rau caz fara metode iterative.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("**Enunt.** Fie $D(T)$ domeniul de toleranta si $\\mathcal{V}(T)$ multimea celor $2^6 = 64$ varfuri. Atunci:")
+            st.latex(r"\min_{X \in D(T)} f(X) = \min_{X \in \mathcal{V}(T)} f(X)")
+            st.markdown("""
+            **Demonstratie.**
+            - **Pasul 1:** $x_1$ apare cu $-1/2$. Pentru a minimiza $f$, maximizam $x_1$ si minimizam $x_2$.
+            - **Pasul 2:** $g(u,v) = \\sqrt{u^2+v^2}$ este convexa. Maximul pe un dreptunghi e la varfuri (Rockafellar, 1970).
+            - **Concluzie:** Minimul global se atinge la unul din cele 64 de varfuri.
+            
+            **Implicatie practica:** Enumerarea exhaustiva ofera **garantia absoluta** in sub 1 ms.
+            """)
+        else:
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Mathematical guarantee of finding the worst case without iterative methods.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.latex(r"\min_{X \in D(T)} f(X) = \min_{X \in \mathcal{V}(T)} f(X)")
+            st.markdown("""
+            **Proof.** $x_1$ with $-1/2$ → maximize $x_1$, minimize $x_2$. $g(u,v)=\\sqrt{u^2+v^2}$ is convex → max at vertices (Rockafellar, 1970).
+            **Conclusion:** Global minimum at one of 64 vertices.
+            """)
+        st.markdown("""
+        <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+            <strong>💻 Implementare:</strong> <code>agent_tester.py</code> → metoda <code>ataca()</code> — 64 de masti binare
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # ---------- TAB 5.5: NEURONUL FRACTIONAR ----------
+    with tm5:
+        st.markdown("### 5. " + ("Neuronul fractionar" if st.session_state.lang == 'ro' else "Fractional Neuron"))
+        if st.session_state.lang == 'ro':
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Controlul adaptiv al ajustarilor folosind memoria lunga a calculului fractionar.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("**Derivata Grunwald-Letnikov:**")
+            st.latex(r"D^{\alpha} y(t) = \lim_{h \to 0} \frac{1}{h^{\alpha}} \sum_{j=0}^{\infty} (-1)^j \binom{\alpha}{j} y(t - jh)")
+            st.markdown("Ponderile $|w_j|$ descresc **algebric** (ca $j^{-\\alpha-1}$) — memorie lunga.")
+            st.markdown("**Implementare discreta.** Semnal: $y(t) = +1$ (DEFECT) sau $-1$ (OK).")
+            st.latex(r"u(t) = \sum_{j=0}^{19} w_j \cdot y(t-j), \quad \beta(t) = \frac{1}{1 + e^{-u(t)}} \in (0, 1)")
+            st.markdown("**Rol:** $\\beta \\to 1$ = agresiv (strange tare). $\\beta \\to 0$ = precaut (ajustari fine).")
+        else:
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Adaptive control using long memory from fractional calculus.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.latex(r"D^{\alpha} y(t) = \lim_{h \to 0} \frac{1}{h^{\alpha}} \sum_{j=0}^{\infty} (-1)^j \binom{\alpha}{j} y(t - jh)")
+            st.latex(r"u(t) = \sum_{j=0}^{19} w_j \cdot y(t-j), \quad \beta(t) = \frac{1}{1 + e^{-u(t)}}")
+        st.markdown("""
+        <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+            <strong>💻 Implementare:</strong> <code>neuron_fractionar.py</code> → clasa <code>NeuronFractionar</code> (~30 linii)
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # ---------- TAB 5.6: CUANTIFICAREA INCERTITUDINII ----------
+    with tm6:
+        st.markdown("### 6. " + ("Cuantificarea incertitudinii" if st.session_state.lang == 'ro' else "Uncertainty Quantification"))
+        if st.session_state.lang == 'ro':
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Estimarea probabilitatii reale de defect folosind un model stochastic realist.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("**Modelul stochastic.** Fiecare dimensiune $x_i$ este modelata normal (Gaussian):")
+            st.latex(r"x_i \sim \mathcal{N}(x_i^{\text{nom}}, \sigma_i^2), \quad \sigma_i = \frac{t_i}{3}")
+            st.markdown("**Justificare:** Teorema limitei centrale (Feller, 1971) + regula $3\\sigma$ din Six Sigma.")
+            st.markdown("**Estimatorul Monte Carlo:**")
+            st.latex(r"\hat{P}_{\text{defect}} = \frac{1}{N} \sum_{k=1}^{N} \mathbf{1}_{\{f(X_k) \leq 0\}}")
+            st.markdown("Nedeplasat, convergent. $\\text{Var} \\leq 1/(4N)$. Pentru $N = 5.000$, eroarea standard $< 0.007$.")
+        else:
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Estimating real defect probability using a realistic stochastic model.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.latex(r"x_i \sim \mathcal{N}(x_i^{\text{nom}}, \sigma_i^2), \quad \sigma_i = \frac{t_i}{3}")
+            st.latex(r"\hat{P}_{\text{defect}} = \frac{1}{N} \sum_{k=1}^{N} \mathbf{1}_{\{f(X_k) \leq 0\}}")
+        st.markdown("""
+        <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+            <strong>💻 Implementare:</strong> <code>np.random.normal(loc=nom, scale=t/3)</code> in aplicatia Streamlit
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # ---------- TAB 5.7: FUNCTIA DE COST ----------
+    with tm7:
+        st.markdown("### 7. " + ("Functia de cost si regula de ajustare" if st.session_state.lang == 'ro' else "Cost Function and Adjustment Rule"))
+        if st.session_state.lang == 'ro':
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Modelarea costului de fabricatie si definirea regulii de ajustare.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("**Functia de cost:**")
+            st.latex(r"\text{Cost}(T) = \sum_{i=1}^{6} \frac{1}{t_i}")
+            st.markdown("**Justificare:** Costul creste invers proportional cu precizia (Singh et al., 2009).")
+            st.markdown("**Regula de ajustare — pas relativ:**")
+            st.markdown("- **Strangere:** $t_i \\leftarrow t_i / (1 + \\delta_{\\text{efectiv}})$")
+            st.markdown("- **Largire:** $t_i \\leftarrow t_i \\times (1 + \\delta_{\\text{efectiv}})$")
+            st.markdown("cu $\\delta_{\\text{efectiv}} = \\beta \\cdot \\delta$, $\\delta = 0.2$.")
+        else:
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Modeling manufacturing cost and defining the adjustment rule.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.latex(r"\text{Cost}(T) = \sum_{i=1}^{6} \frac{1}{t_i}")
+            st.markdown("- **Tightening:** $t_i \\leftarrow t_i / (1 + \\delta_{\\text{effective}})$")
+            st.markdown("- **Widening:** $t_i \\leftarrow t_i \\times (1 + \\delta_{\\text{effective}})$")
+        st.markdown("""
+        <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+            <strong>💻 Implementare:</strong> <code>agent_proiectant.py</code> → metoda <code>primeste_raport()</code>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # ---------- TAB 5.8: CONVERGENTA ----------
+    with tm8:
+        st.markdown("### 8. " + ("Convergenta sistemului" if st.session_state.lang == 'ro' else "System Convergence"))
+        if st.session_state.lang == 'ro':
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Stabilirea conditiilor in care sistemul a atins solutia optima.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("""
+            **Criteriul de convergenta:**
+            1. **Calitate:** $f(X) > -0.01$ mm pentru toate cele 64 de colturi
+            2. **Stabilitate:** 2 iteratii consecutive OK
+            
+            **Demonstratia convergentei:**
+            - **Monotonitatea strangerii:** $t_j \\leftarrow t_j/(1+\\delta) < t_j$
+            - **Finitudinea explorarii:** Maxim 6 esecuri de largire
+            - **Marginirea inferioara:** $t_{\\min} = 0.01$ mm
+            - **Neuronul fractionar:** $\\beta$ scade brusc la tranzitie
+            
+            **Garantia oferita:** **Absoluta** — niciuna din cele 64 de combinatii nu produce interferenta.
+            """)
+        else:
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Establishing conditions for optimal solution.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("""
+            **Convergence Criterion:**
+            1. **Quality:** $f(X) > -0.01$ mm for all 64 corners
+            2. **Stability:** 2 consecutive OK iterations
+            **Guarantee:** **Absolute** — none of the 64 combinations produces interference.
+            """)
+        st.markdown("""
+        <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+            <strong>💻 Implementare:</strong> <code>principal.py</code> → bucla principala
+        </div>
+        """, unsafe_allow_html=True)
+    
+    # ---------- TAB 5.9: LIMITARI ----------
+    with tm9:
+        st.markdown("### 9. " + ("Limitari si consideratii" if st.session_state.lang == 'ro' else "Limitations and Considerations"))
+        if st.session_state.lang == 'ro':
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Identificarea limitarilor actuale si a directiilor de dezvoltare.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("""
+            **Limitari actuale:**
+            1. **Scalabilitatea:** $2^n$ colturi devine prohibitiv pentru $n > 20$
+            2. **Modelul de cost simplificat:** $\\sum 1/t_i$ este o aproximare
+            3. **Independenta cotelor:** In practica, unele cote pot fi corelate
+            4. **Analiza pur geometrica:** Fara deformatii elastice, dilatatii termice
+            5. **Geometrie simpla:** 2 stifturi, 2 gauri
+            
+            **Consideratii:**
+            - Pragul de defect ($-0.01$ mm) este calibrat empiric
+            - Distributia normala ($3\\sigma$) este rezonabila pentru procese controlate
+            - Costul calculat este o masura **relativa**, nu absoluta
+            """)
+        else:
+            st.markdown("""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Identifying current limitations and future directions.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.markdown("""
+            **Current Limitations:**
+            1. **Scalability:** $2^n$ becomes prohibitive for $n > 20$
+            2. **Simplified cost model**
+            3. **Independent dimensions**
+            4. **Purely geometric analysis**
+            5. **Simple geometry**
+            
+            **Considerations:**
+            - Defect threshold ($-0.01$ mm) is empirically calibrated
+            - Normal distribution ($3\\sigma$) is reasonable for controlled processes
+            - Calculated cost is a **relative** measure
+            """)
