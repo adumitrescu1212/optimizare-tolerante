@@ -403,7 +403,7 @@ with tab2:
         })
         st.dataframe(df_critic, use_container_width=True, hide_index=True)
         
-                if st.session_state.lang == 'ro':
+        if st.session_state.lang == 'ro':
             st.markdown(
                 "> **Interpretare:** Tabelul arata combinatia exacta de dimensiuni care produce cel mai mic joc "
                 f"(joc = **{joc_crit:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea "
