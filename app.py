@@ -386,6 +386,41 @@ with tab2:
         
         csv = pd.DataFrame(istoric).to_csv(index=False).encode('utf-8')
         st.download_button(t['export'], csv, 'istoric_optimizare.csv', 'text/csv')
+                # ---------- Combinația critică ----------
+        st.divider()
+        st.header("🔍 " + ("Combinația critică (cel mai rău caz)" if st.session_state.lang == 'ro' else "Critical Combination (Worst Case)"))
+        
+        # Reluăm căutarea pentru a extrage valorile exacte
+        tester2 = AgentTester(alpha=alpha, max_iteratii=500)
+        rezultat_critic, X_critic, cota_critic = tester2.ataca(proiectant.propune_tolerante())
+        joc_critic, j1, j2 = functia_de_joc(X_critic)
+        
+        df_critic = pd.DataFrame({
+            ('Cotă' if st.session_state.lang == 'ro' else 'Dimension'): t['cote'],
+            ('Valoare nominală' if st.session_state.lang == 'ro' else 'Nominal Value'): valori_nominale,
+            ('Valoare critică' if st.session_state.lang == 'ro' else 'Critical Value'): np.round(X_critic, 5),
+            ('Abatere' if st.session_state.lang == 'ro' else 'Deviation'): np.round(X_critic - valori_nominale, 5),
+            ('Direcție' if st.session_state.lang == 'ro' else 'Direction'): [
+                '🔼 Maxim' if X_critic[i] > valori_nominale[i] else '🔽 Minim' for i in range(6)
+            ]
+        })
+        st.dataframe(df_critic, use_container_width=True, hide_index=True)
+        
+        if st.session_state.lang == 'ro':
+            st.markdown(f"""
+            > **Interpretare:** Tabelul arată combinația exactă de dimensiuni care produce cel mai mic joc 
+            (joc = **{joc_critic:.4f} mm**). Aceste valori trebuie introduse în SolidWorks pentru validarea 
+            experimentală. Coloana *Direcție* indică dacă dimensiunea trebuie setată la maximul sau minimul 
+            toleranței. Cota **{cota_critic + 1}** are cea mai mare abatere relativă și este principala 
+            responsabilă pentru defect.
+            """)
+        else:
+            st.markdown(f"""
+            > **Interpretation:** The table shows the exact dimension combination producing the smallest gap 
+            (gap = **{joc_critic:.4f} mm**). These values should be entered in SolidWorks for experimental 
+            validation. The *Direction* column indicates whether the dimension is at maximum or minimum 
+            tolerance. Dimension **{cota_critic + 1}** has the largest relative deviation.
+            """)
         st.success("👈 " + ("Mergi la tab-ul Grafice." if st.session_state.lang == 'ro' else "Go to Charts tab."))
     else:
         st.info(t['wait'])
