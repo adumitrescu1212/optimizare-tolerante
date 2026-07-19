@@ -133,41 +133,71 @@ with st.sidebar:
 if st.session_state.theme == 'dark':
     st.markdown("""
     <style>
-        .stApp { background-color: #0e1117; color: #fafafa; }
+        .stApp { background-color: #0e1117 !important; color: #fafafa !important; }
         
-        /* Carduri si containere */
+        /* Toate div-urile cu background deschis */
         div[style*="background: #f8f9fa"] {
             background-color: #1a1c23 !important;
             border-color: #2d3139 !important;
         }
-        div[style*="border-left: 4px solid #667eea"] {
+        div[style*="background: #f0f4ff"] {
             background-color: #1a1c23 !important;
+            border-color: #2d3139 !important;
+        }
+        div[style*="background: linear-gradient"] {
+            opacity: 0.9;
         }
         
-        /* Text in carduri */
-        div[style*="background: #f8f9fa"] p,
-        div[style*="background: #f8f9fa"] h2,
-        div[style*="border-left: 4px solid #667eea"] p {
+        /* Texte in elemente cu fundal deschis */
+        .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4,
+        .stMarkdown li, .stMarkdown strong {
             color: #e0e0e0 !important;
         }
         
-        /* Titluri */
-        h1, h2, h3, h4 { color: #fafafa !important; }
-        p { color: #cccccc !important; }
+        /* Exceptie: textul alb pe gradient mov ramane alb */
+        div[style*="background: linear-gradient"] p,
+        div[style*="background: linear-gradient"] strong {
+            color: white !important;
+        }
         
-        /* Tabele */
-        .stDataFrame { background-color: #1a1c23 !important; }
-        .stDataFrame th { background-color: #2d3139 !important; color: #fafafa !important; }
-        .stDataFrame td { background-color: #1a1c23 !important; color: #e0e0e0 !important; }
-        
-        /* Info box */
-        .stAlert { background-color: #1a1c23 !important; color: #e0e0e0 !important; }
+        /* Metric cards */
+        div[data-testid="stMetric"] {
+            background-color: #1a1c23 !important;
+        }
+        div[data-testid="stMetric"] label {
+            color: #999 !important;
+        }
+        div[data-testid="stMetric"] div {
+            color: #fafafa !important;
+        }
         
         /* Blockquote */
-        blockquote { background-color: #1a1c23 !important; border-left-color: #667eea !important; color: #e0e0e0 !important; }
+        blockquote {
+            background-color: #1a1c23 !important;
+            border-left: 4px solid #667eea !important;
+            color: #e0e0e0 !important;
+        }
+        
+        /* DataFrame */
+        .stDataFrame > div > div {
+            background-color: #1a1c23 !important;
+        }
+        
+        /* Info/Warning/Success boxes */
+        div[data-testid="stAlert"] {
+            background-color: #1a1c23 !important;
+        }
+        
+        /* Tabs */
+        .stTabs [data-baseweb="tab-list"] {
+            background-color: #1a1c23 !important;
+        }
+        .stTabs [aria-selected="true"] {
+            background-color: #2d3139 !important;
+            color: #fafafa !important;
+        }
     </style>
     """, unsafe_allow_html=True)
-
 # ---------- Tab-uri ----------
 tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4'], t['tab5']])
 
