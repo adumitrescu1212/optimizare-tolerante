@@ -127,8 +127,7 @@ with st.sidebar:
     
     st.divider()
     run = st.button(t['run'], type="primary", use_container_width=True)
-
-# ---------- Dark theme ----------
+    
 # ---------- Dark theme ----------
 if st.session_state.theme == 'dark':
     st.markdown("""
@@ -206,52 +205,26 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4
 # TAB 1: ACASĂ
 # ================================================================
 with tab1:
-    if st.session_state.lang == 'ro':
+        if st.session_state.lang == 'ro':
         st.markdown("""
-        <div style="text-align: center;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚙️ Sistem Multi-Agent cu Neuron Fractionar</h1>
-            <p style="font-size: 1.1rem; color: #666;">Optimizarea tolerantelor pentru ansambluri mecanice</p>
-        </div>
-        """, unsafe_allow_html=True)
-        st.markdown("""
-        <div style="display: flex; justify-content: center;">
-            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700">
-        </div>
-        """, unsafe_allow_html=True)
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin: 20px 0;">
-            <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: center;">
-            Acest proiect propune o <strong>metoda noua</strong> de optimizare a tolerantelor,
-            bazata pe o <strong>arhitectura multi-agent adversiala</strong> cu <strong>neuron fractionar</strong>.
-            Doi agenti software interactioneaza iterativ pentru a gasi
-            <strong>cel mai ieftin set de tolerante</strong> care garanteaza functionalitatea.
-            </p>
+        <div style="background: #f8f9fa; border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
+            <p style="font-size: 1.05rem; margin: 0 0 10px 0;"><strong>Procedura de utilizare a sistemului</strong></p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">1. Configurati parametrii <strong>Alpha</strong>, <strong>Delta</strong> si <strong>Toleranta initiala</strong> in panoul lateral.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">2. Accesati tab-ul <strong>Optimizare</strong> si actionati butonul <strong>Ruleaza optimizarea</strong>.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">3. Analizati rezultatele: tolerante optime, simulare Monte Carlo, comparatii cu metodele clasice.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">4. Consultati tab-ul <strong>Matematica</strong> pentru fundamentarea teoretica a fiecarui modul.</p>
         </div>
         """, unsafe_allow_html=True)
     else:
         st.markdown("""
-        <div style="text-align: center;">
-            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚙️ Multi-Agent System with Fractional Neuron</h1>
-            <p style="font-size: 1.1rem; color: #666;">Tolerance Optimization for Mechanical Assemblies</p>
+        <div style="background: #f8f9fa; border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
+            <p style="font-size: 1.05rem; margin: 0 0 10px 0;"><strong>System Usage Procedure</strong></p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">1. Configure parameters <strong>Alpha</strong>, <strong>Delta</strong>, and <strong>Initial Tolerance</strong> in the side panel.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">2. Go to the <strong>Optimization</strong> tab and press <strong>Run Optimization</strong>.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">3. Analyze the results: optimal tolerances, Monte Carlo simulation, comparisons with classical methods.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">4. Consult the <strong>Mathematics</strong> tab for the theoretical foundation of each module.</p>
         </div>
         """, unsafe_allow_html=True)
-        st.markdown("""
-        <div style="display: flex; justify-content: center;">
-            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700">
-        </div>
-        """, unsafe_allow_html=True)
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin: 20px 0;">
-            <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: center;">
-            This project proposes a <strong>novel method</strong> for dimensional tolerance optimization,
-            based on an <strong>adversarial multi-agent architecture</strong> with a <strong>fractional neuron</strong>.
-            Two software agents interact iteratively to find the
-            <strong>cheapest tolerance set</strong> that guarantees assembly functionality.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
 
