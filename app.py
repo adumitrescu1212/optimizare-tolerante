@@ -793,36 +793,133 @@ with tab5:
         </div>
         """, unsafe_allow_html=True)
     
-    # ---------- TAB 5.6: CUANTIFICAREA INCERTITUDINII ----------
+       # ---------- TAB 5.6: CUANTIFICAREA INCERTITUDINII ----------
     with tm6:
         st.markdown("### 6. " + ("Cuantificarea incertitudinii" if st.session_state.lang == 'ro' else "Uncertainty Quantification"))
         if st.session_state.lang == 'ro':
             st.markdown("""
             <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
                 <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Obiectiv:</strong> Estimarea probabilitatii reale de defect folosind un model stochastic realist.
+                <strong>Obiectiv:</strong> Dupa optimizare, stim ca ansamblul functioneaza garantat. Dar care este probabilitatea
+                reala de defect intr-un scenariu de productie? Cuantificarea incertitudinii (UQ) raspunde la aceasta intrebare.
                 </p>
             </div>
             """, unsafe_allow_html=True)
-            st.markdown("**Modelul stochastic.** Fiecare dimensiune $x_i$ este modelata normal (Gaussian):")
+            
+            st.markdown("### Modelul stochastic al procesului de fabricatie")
+            st.markdown("""
+            Fiecare dimensiune $x_i$ este modelata ca o variabila aleatoare **normala** (Gaussiana), centrata pe valoarea nominala.
+            Aceasta este ipoteza standard in ingineria calitatii, justificata de doua argumente:
+            """)
             st.latex(r"x_i \sim \mathcal{N}(x_i^{\text{nom}}, \sigma_i^2), \quad \sigma_i = \frac{t_i}{3}")
-            st.markdown("**Justificare:** Teorema limitei centrale (Feller, 1971) + regula $3\\sigma$ din Six Sigma.")
-            st.markdown("**Estimatorul Monte Carlo:**")
+            st.markdown("""
+            **Justificare teoretica — Teorema limitei centrale (Feller, 1971):** O dimensiune fabricata este rezultatul cumulat
+            al numerosi factori independenti: vibratii, uzura sculei, variatii de temperatura. Conform teoremei limitei centrale,
+            suma unui numar mare de variabile aleatoare independente tinde catre o distributie normala, indiferent de
+            distributia factorilor individuali.
+            
+            **Justificare practica — Six Sigma (Pyzdek & Keller, 2014):** Regula celor $3\\sigma$ stipuleaza ca intervalul
+            $[\\mu - 3\\sigma, \\mu + 3\\sigma]$ contine $99.73\\%$ din piesele produse. Definirea tolerantei ca $t_i = 3\\sigma_i$
+            este conventia industriala standard.
+            """)
+            
+            st.markdown("### Estimarea Monte Carlo a probabilitatii de defect")
+            st.markdown("""
+            Probabilitatea de defect pentru un vector de tolerante $T$ este:
+            """)
+            st.latex(r"P_{\text{defect}}(T) = \mathbb{P}_{X \sim \mathcal{D}(T)}\left[ f(X) \leq 0 \right]")
+            st.markdown("""
+            Intrucat aceasta integrala nu poate fi calculata analitic (din cauza complexitatii functiei $f$),
+            o estimam prin simulare Monte Carlo:
+            """)
             st.latex(r"\hat{P}_{\text{defect}} = \frac{1}{N} \sum_{k=1}^{N} \mathbf{1}_{\{f(X_k) \leq 0\}}")
-            st.markdown("Nedeplasat, convergent. $\\text{Var} \\leq 1/(4N)$. Pentru $N = 5.000$, eroarea standard $< 0.007$.")
+            st.markdown("""
+            unde $X_1, \\dots, X_N$ sunt $N$ esantioane independente din distributia normala $\\mathcal{D}(T)$,
+            iar $\\mathbf{1}_{\\{f(X_k) \\leq 0\\}}$ este functia indicator (1 daca apare defect, 0 altfel).
+            
+            **Proprietati statistice:** $\\hat{P}_{\\text{defect}}$ este un estimator **nedeplasat** (expected value = valoarea reala)
+            si **convergent** (devine mai precis pe masura ce $N$ creste). Varianta estimatorului este:
+            """)
+            st.latex(r"\text{Var}(\hat{P}_{\text{defect}}) = \frac{P_{\text{defect}}(1-P_{\text{defect}})}{N} \leq \frac{1}{4N}")
+            st.markdown("""
+            Pentru $N = 5.000$ (cat folosim in aplicatie), eroarea standard este sub $0.007$ (0.7 puncte procentuale).
+            """)
+            
+            st.markdown("### Integrarea UQ in sistemul nostru")
+            st.markdown("""
+            Cuantificarea incertitudinii apare in **doua puncte** distincte ale sistemului:
+            
+            **1. In bucla de optimizare (online):** La fiecare iteratie, dupa ce Testerul gaseste cel mai rau caz
+            (prin enumerarea celor 64 de colturi), se ruleaza un mini Monte Carlo pentru a estima $P_{\\text{defect}}$
+            asociat tolerantelor curente. Aceasta ofera o metrica cantitativa a riscului in timp real.
+            
+            **2. La finalul optimizarii (offline):** Se ruleaza un Monte Carlo complet ($N = 5.000$) pe tolerantele optime,
+            pentru validare si comparatie cu metodele traditionale.
+            
+            **Noutatea abordarii:** Spre deosebire de metodele traditionale unde UQ este un pas separat (post-optimizare),
+            in sistemul nostru UQ-ul este **integrat in bucla de feedback**. Estimarea riscului ghideaza direct deciziile
+            Agentului Proiectant prin factorul $\\beta$, creand o sinergie intre optimizare si cuantificarea incertitudinii.
+            """)
         else:
             st.markdown("""
             <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
                 <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Objective:</strong> Estimating real defect probability using a realistic stochastic model.
+                <strong>Objective:</strong> After optimization, we know the assembly works. But what is the real defect
+                probability in a production scenario? Uncertainty Quantification (UQ) answers this question.
                 </p>
             </div>
             """, unsafe_allow_html=True)
+            
+            st.markdown("### Stochastic Manufacturing Model")
+            st.markdown("""
+            Each dimension $x_i$ is modeled as a **normal** (Gaussian) random variable centered on the nominal value.
+            This is the standard assumption in quality engineering, justified by two arguments:
+            """)
             st.latex(r"x_i \sim \mathcal{N}(x_i^{\text{nom}}, \sigma_i^2), \quad \sigma_i = \frac{t_i}{3}")
+            st.markdown("""
+            **Theoretical justification — Central Limit Theorem (Feller, 1971):** A manufactured dimension results from
+            many independent factors: vibrations, tool wear, temperature variations. The CLT states that the sum tends
+            toward a normal distribution.
+            
+            **Practical justification — Six Sigma (Pyzdek & Keller, 2014):** The $3\\sigma$ rule states that
+            $[\\mu - 3\\sigma, \\mu + 3\\sigma]$ contains $99.73\\%$ of produced parts. Defining tolerance as
+            $t_i = 3\\sigma_i$ is the standard industrial convention.
+            """)
+            
+            st.markdown("### Monte Carlo Estimation of Defect Probability")
+            st.markdown("""
+            The defect probability for a tolerance vector $T$ is:
+            """)
+            st.latex(r"P_{\text{defect}}(T) = \mathbb{P}_{X \sim \mathcal{D}(T)}\left[ f(X) \leq 0 \right]")
+            st.markdown("""
+            Since this integral cannot be computed analytically, we estimate it via Monte Carlo simulation:
+            """)
             st.latex(r"\hat{P}_{\text{defect}} = \frac{1}{N} \sum_{k=1}^{N} \mathbf{1}_{\{f(X_k) \leq 0\}}")
+            st.markdown("""
+            where $X_1, \\dots, X_N$ are $N$ independent samples from $\\mathcal{D}(T)$.
+            
+            **Statistical properties:** $\\hat{P}_{\\text{defect}}$ is **unbiased** and **consistent**.
+            Its variance is bounded by $1/(4N)$. For $N = 5.000$, the standard error is below $0.007$.
+            """)
+            
+            st.markdown("### UQ Integration in Our System")
+            st.markdown("""
+            Uncertainty quantification appears in **two points** of the system:
+            
+            **1. In the optimization loop (online):** At each iteration, after the Tester finds the worst case
+            (by enumerating the 64 corners), a mini Monte Carlo estimates $P_{\\text{defect}}$ for current tolerances.
+            
+            **2. After optimization (offline):** A full Monte Carlo ($N = 5.000$) runs on the optimal tolerances
+            for validation and comparison with traditional methods.
+            
+            **Novelty:** Unlike traditional methods where UQ is a separate post-optimization step, our system
+            **integrates UQ into the feedback loop**. Risk estimation directly guides the Designer Agent's decisions
+            through the $\\beta$ factor, creating synergy between optimization and uncertainty quantification.
+            """)
+        
         st.markdown("""
         <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
-            <strong>💻 Implementare:</strong> <code>np.random.normal(loc=nom, scale=t/3)</code> in aplicatia Streamlit
+            <strong>💻 Implementare:</strong> <code>np.random.normal(loc=nom, scale=t/3)</code> in aplicatia Streamlit (tab-ul Optimizare)
         </div>
         """, unsafe_allow_html=True)
     
