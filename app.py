@@ -1,4 +1,3 @@
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -576,356 +575,474 @@ with tab4:
         """)
 
 # ================================================================
-# TAB 5: MATEMATICĂ
+# TAB 5: MATEMATICA
 # ================================================================
 with tab5:
     st.title("📐 " + ("Breviat teoretic" if st.session_state.lang == 'ro' else "Theoretical Brief"))
     
     if st.session_state.lang == 'ro':
-        st.markdown("Acest breviar conține fundamentele matematice pe care se bazează întregul sistem. Fiecare concept este însoțit de demonstrația corespunzătoare și de indicarea modulului Python în care este implementat.")
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin-bottom: 25px;">
+            <p style="font-size: 1rem; line-height: 1.6; margin: 0;">
+            Acest breviar contine <strong>fundamentele matematice</strong> pe care se bazeaza intregul sistem.
+            Fiecare sectiune prezinta <strong>conceptul teoretic</strong>, <strong>formulele corespunzatoare</strong>
+            si <strong>modulul Python</strong> in care este implementat.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.markdown("This brief contains the mathematical foundations underlying the entire system. Each concept is accompanied by its proof and an indication of the Python module where it is implemented.")
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin-bottom: 25px;">
+            <p style="font-size: 1rem; line-height: 1.6; margin: 0;">
+            This brief contains the <strong>mathematical foundations</strong> underlying the entire system.
+            Each section presents the <strong>theoretical concept</strong>, <strong>corresponding formulas</strong>,
+            and the <strong>Python module</strong> where it is implemented.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     
     tm1, tm2, tm3, tm4, tm5, tm6, tm7, tm8, tm9 = st.tabs([
-        "1. " + ("Funcția de joc" if st.session_state.lang == 'ro' else "Gap Function"),
+        "1. " + ("Functia de joc" if st.session_state.lang == 'ro' else "Gap Function"),
         "2. " + ("Gradientul analitic" if st.session_state.lang == 'ro' else "Analytical Gradient"),
         "3. " + ("Subgradientul" if st.session_state.lang == 'ro' else "Subgradient"),
-        "4. " + ("Teorema colțurilor" if st.session_state.lang == 'ro' else "Corner Theorem"),
-        "5. " + ("Neuronul fracționar" if st.session_state.lang == 'ro' else "Fractional Neuron"),
+        "4. " + ("Teorema colturilor" if st.session_state.lang == 'ro' else "Corner Theorem"),
+        "5. " + ("Neuronul fractionar" if st.session_state.lang == 'ro' else "Fractional Neuron"),
         "6. " + ("Cuantificarea incertitudinii" if st.session_state.lang == 'ro' else "Uncertainty Quantification"),
-        "7. " + ("Funcția de cost" if st.session_state.lang == 'ro' else "Cost Function"),
-        "8. " + ("Convergența" if st.session_state.lang == 'ro' else "Convergence"),
-        "9. " + ("Limitări" if st.session_state.lang == 'ro' else "Limitations"),
+        "7. " + ("Functia de cost" if st.session_state.lang == 'ro' else "Cost Function"),
+        "8. " + ("Convergenta" if st.session_state.lang == 'ro' else "Convergence"),
+        "9. " + ("Limitari" if st.session_state.lang == 'ro' else "Limitations"),
     ])
     
-    # ---------- TAB 5.1: FUNCȚIA DE JOC ----------
+    # ---------- TAB 5.1: FUNCTIA DE JOC ----------
     with tm1:
+        st.markdown("### 1. " + ("Functia de joc" if st.session_state.lang == 'ro' else "The Gap Function"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 1. Funcția de joc — modelarea condiției de asamblare
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Determinarea matematica a conditiei de asamblare corecta pentru o pereche stift-gaura.
+                </p>
+            </div>
             
-            **Problemă:** Cum determinăm matematic dacă un ansamblu mecanic se poate monta corect?
-            **Răspuns:** Prin calculul **jocului** — spațiul liber dintre un știft și gaura corespunzătoare.
+            <strong>Definitie.</strong> Pentru o pereche stift-gaura, fie $R_s$ raza stiftului, $R_g$ raza gaurii si $d = \|S - G\|$ distanta euclidiana dintre centrele lor. <strong>Jocul</strong> este definit prin:
             
-            ---
-            #### Definiție
-            Pentru o pereche știft-gaură, fie $R_s$ raza știftului, $R_g$ raza găurii și $d = \\|S - G\\|$ distanța euclidiană dintre centrele lor. **Jocul** este:
             $$J = R_g - R_s - d$$
             
-            #### Demonstrație geometrică
-            Două cercuri sunt disjuncte dacă $d > R_s + R_g$ sau $d < |R_s - R_g|$. Pentru asamblare, știftul trebuie să fie **complet interior** găurii ($R_g > R_s$). Condiția de incluziune completă: $d + R_s < R_g$, echivalent cu $R_g - R_s - d > 0$. ∎
+            <strong>Demonstratie.</strong> Doua cercuri sunt disjuncte daca $d > R_s + R_g$ sau $d < |R_s - R_g|$. Pentru asamblare, stiftul trebuie sa fie <strong>complet interior</strong> gaurii ($R_g > R_s$). Conditia de incluziune completa fara contact la frontiera este $d + R_s < R_g$, echivalent cu $R_g - R_s - d > 0$. $\square$
             
-            ---
-            #### Funcția globală de joc
-            $$f(X) = \\min(J_1(X), J_2(X))$$
-            **Criteriul de asamblare:** Ansamblul funcționează **dacă și numai dacă** $f(X) > 0$.
+            <strong>Functia globala de joc.</strong> Pentru un ansamblu cu doua perechi stift-gaura:
             
-            ---
-            #### Exprimarea explicită
-            $$f(X) = \\frac{x_2 - x_1}{2} - \\sqrt{(x_3 - x_5)^2 + (x_4 - x_6)^2}$$
-            **💻 Implementare:** `model_matematic.py` → `functia_de_joc(X)`
+            $$f(X) = \min(J_1(X), J_2(X))$$
+            
+            <strong>Criteriul de asamblare:</strong> Ansamblul functioneaza <em>daca si numai daca</em> $f(X) > 0$.
+            
+            <strong>Exprimare explicita pentru ansamblul studiat:</strong>
+            
+            $$f(X) = \frac{x_2 - x_1}{2} - \sqrt{(x_3 - x_5)^2 + (x_4 - x_6)^2}$$
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>model_matematic.py</code> → functia <code>functia_de_joc(X)</code>
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 1. The Gap Function — modeling the assembly condition
-            **Problem:** How do we mathematically determine if a mechanical assembly can be correctly mounted?
-            **Answer:** By calculating the **gap** — the free space between a pin and its corresponding hole.
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Mathematical determination of the correct assembly condition for a pin-hole pair.
+                </p>
+            </div>
             
-            ---
-            #### Definition
+            <strong>Definition.</strong> For a pin-hole pair, let $R_s$ be the pin radius, $R_g$ the hole radius, and $d = \|S - G\|$ the Euclidean distance between their centers. The <strong>gap</strong> is defined as:
+            
             $$J = R_g - R_s - d$$
-            #### Geometric Proof
-            Two circles are disjoint iff $d > R_s + R_g$ or $d < |R_s - R_g|$. For assembly, the pin must be **fully inside** the hole ($R_g > R_s$). The condition: $d + R_s < R_g$, i.e. $R_g - R_s - d > 0$. ∎
             
-            ---
-            #### Global Gap Function
-            $$f(X) = \\min(J_1(X), J_2(X))$$
-            **Assembly criterion:** The assembly works **iff** $f(X) > 0$.
+            <strong>Proof.</strong> Two circles are disjoint iff $d > R_s + R_g$ or $d < |R_s - R_g|$. For assembly, the pin must be <strong>fully inside</strong> the hole ($R_g > R_s$). The condition for complete inclusion is $d + R_s < R_g$, equivalent to $R_g - R_s - d > 0$. $\square$
             
-            ---
-            #### Explicit Expression
-            $$f(X) = \\frac{x_2 - x_1}{2} - \\sqrt{(x_3 - x_5)^2 + (x_4 - x_6)^2}$$
-            **💻 Implementation:** `model_matematic.py` → `functia_de_joc(X)`
+            <strong>Global gap function.</strong> For an assembly with two pin-hole pairs:
+            
+            $$f(X) = \min(J_1(X), J_2(X))$$
+            
+            <strong>Assembly criterion:</strong> The assembly works <em>if and only if</em> $f(X) > 0$.
+            
+            <strong>Explicit expression for the studied assembly:</strong>
+            
+            $$f(X) = \frac{x_2 - x_1}{2} - \sqrt{(x_3 - x_5)^2 + (x_4 - x_6)^2}$$
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>model_matematic.py</code> → function <code>functia_de_joc(X)</code>
+            </div>
             """)
     
     # ---------- TAB 5.2: GRADIENTUL ANALITIC ----------
     with tm2:
+        st.markdown("### 2. " + ("Gradientul analitic" if st.session_state.lang == 'ro' else "The Analytical Gradient"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 2. Gradientul analitic — direcția de ajustare
-            **Problemă:** Cum știm care cotă influențează cel mai mult jocul?
-            **Răspuns:** Prin calculul analitic al gradientului funcției de joc.
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Identificarea cotelor cu cel mai mare impact asupra jocului, pentru a ghida ajustarile.
+                </p>
+            </div>
             
-            ---
-            $$\\nabla f(X) = \\begin{bmatrix} -\\frac{1}{2} & +\\frac{1}{2} & -\\frac{x_3-x_5}{d} & -\\frac{x_4-x_6}{d} & +\\frac{x_3-x_5}{d} & +\\frac{x_4-x_6}{d} \\end{bmatrix}^T$$
+            <strong>Calcul analitic.</strong> Gradientul functiei de joc se calculeaza exact, nu prin diferente finite:
             
-            - $-1/2$: știftul mai gros → joc mai mic
-            - $+1/2$: gaura mai mare → joc mai mare
+            $$\nabla f(X) = \begin{bmatrix} -\frac{1}{2} & +\frac{1}{2} & -\frac{x_3-x_5}{d} & -\frac{x_4-x_6}{d} & +\frac{x_3-x_5}{d} & +\frac{x_4-x_6}{d} \end{bmatrix}^T$$
             
-            **💻 Implementare:** `model_matematic.py` → `calculeaza_subgradient(X)` (analitic, nu diferențe finite)
+            <strong>Interpretare:</strong> Semnul fiecarei componente indica directia de influenta. $-1/2$ pentru $x_1$ (stiftul): un diametru mai mare reduce jocul. $+1/2$ pentru $x_2$ (gaura): un diametru mai mare creste jocul.
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>model_matematic.py</code> → functia <code>calculeaza_subgradient(X)</code>
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 2. Analytical Gradient — the adjustment direction
-            $$\\nabla f(X) = \\begin{bmatrix} -\\frac{1}{2} & +\\frac{1}{2} & -\\frac{x_3-x_5}{d} & -\\frac{x_4-x_6}{d} & +\\frac{x_3-x_5}{d} & +\\frac{x_4-x_6}{d} \\end{bmatrix}^T$$
-            **💻 Implementation:** `model_matematic.py` → `calculeaza_subgradient(X)`
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Identifying the dimensions with the greatest impact on the gap, to guide adjustments.
+                </p>
+            </div>
+            
+            <strong>Analytical computation.</strong> The gradient of the gap function is calculated exactly:
+            
+            $$\nabla f(X) = \begin{bmatrix} -\frac{1}{2} & +\frac{1}{2} & -\frac{x_3-x_5}{d} & -\frac{x_4-x_6}{d} & +\frac{x_3-x_5}{d} & +\frac{x_4-x_6}{d} \end{bmatrix}^T$$
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>model_matematic.py</code> → function <code>calculeaza_subgradient(X)</code>
+            </div>
             """)
     
     # ---------- TAB 5.3: SUBGRADIENTUL ----------
     with tm3:
+        st.markdown("### 3. " + ("Subgradientul" if st.session_state.lang == 'ro' else "The Subgradient"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 3. Subgradientul — tratarea punctelor de nediferențiabilitate
-            **Problemă:** $f(X) = \\min(J_1, J_2)$ nu este diferențiabilă când $J_1 = J_2$.
-            **Răspuns:** Prin conceptul de **subgradient** din analiza convexă (Rockafellar, 1970).
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Tratarea punctelor in care functia $f(X) = \min(J_1, J_2)$ nu este diferentiabila (cand $J_1 = J_2$).
+                </p>
+            </div>
             
-            ---
-            $$\\partial f(X) = \\text{conv}\\{\\nabla J_i(X) : i \\in \\mathcal{A}(X)\\}$$
-            - **Cazul 1:** Un singur $J_i$ activ → gradientul său e subgradientul
-            - **Cazul 2:** $J_1 = J_2$ → orice combinație convexă a gradienților
-            - Când $d = 0$: regularizare $d \\leftarrow \\max(d, 10^{-8})$
+            <strong>Definitie.</strong> Conceptul de subgradient (Rockafellar, 1970) generalizeaza gradientul pentru functii nediferentiabile:
             
-            **💻 Implementare:** `model_matematic.py` → `calculeaza_subgradient(X)`
+            $$\partial f(X) = \text{conv}\{\nabla J_i(X) : i \in \mathcal{A}(X)\}$$
+            
+            unde $\mathcal{A}(X)$ este multimea functiilor active (cele care ating minimul in $X$).
+            
+            <strong>Cazuri practice:</strong>
+            - <strong>Cazul 1:</strong> Un singur $J_i$ activ → gradientul sau este subgradientul
+            - <strong>Cazul 2:</strong> $J_1 = J_2$ → orice combinatie convexa a gradientilor
+            - <strong>Cand $d = 0$:</strong> Regularizare $d \leftarrow \max(d, 10^{-8})$
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>model_matematic.py</code> → functia <code>calculeaza_subgradient(X)</code>
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 3. Subgradient — handling non-differentiable points
-            $$\\partial f(X) = \\text{conv}\\{\\nabla J_i(X) : i \\in \\mathcal{A}(X)\\}$$
-            When $d = 0$: regularize $d \\leftarrow \\max(d, 10^{-8})$.
-            **💻 Implementation:** `model_matematic.py` → `calculeaza_subgradient(X)`
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Handling points where $f(X) = \min(J_1, J_2)$ is non-differentiable (when $J_1 = J_2$).
+                </p>
+            </div>
+            
+            $$\partial f(X) = \text{conv}\{\nabla J_i(X) : i \in \mathcal{A}(X)\}$$
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>model_matematic.py</code> → function <code>calculeaza_subgradient(X)</code>
+            </div>
             """)
     
-    # ---------- TAB 5.4: TEOREMA COLȚURILOR ----------
+    # ---------- TAB 5.4: TEOREMA COLTURILOR ----------
     with tm4:
+        st.markdown("### 4. " + ("Teorema de localizare a minimului" if st.session_state.lang == 'ro' else "The Corner Localization Theorem"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 4. Teorema de localizare a minimului — garanția matematică
-            **Problemă:** Cum găsim **garantat** cel mai rău caz?
-            **Răspuns:** Minimul se atinge întotdeauna la un vârf al hiper-dreptunghiului.
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Garantarea matematica a gasirii celui mai rau caz fara metode iterative.
+                </p>
+            </div>
             
-            ---
-            $$\\min_{X \\in D(T)} f(X) = \\min_{X \\in \\mathcal{V}(T)} f(X)$$
-            unde $\\mathcal{V}(T)$ = cele $2^6 = 64$ vârfuri.
+            <strong>Enunt.</strong> Fie $D(T)$ domeniul de toleranta si $\mathcal{V}(T)$ multimea celor $2^6 = 64$ varfuri ale hiper-dreptunghiului. Atunci:
             
-            #### Demonstrație
-            **Pasul 1:** $x_1$ apare cu $-1/2$ → minimul la maximul toleranței. $x_2$ cu $+1/2$ → minimul la minimul toleranței.
-            **Pasul 2:** $g(u,v) = \\sqrt{u^2+v^2}$ e convexă → maximul pe dreptunghi la vârfuri (Rockafellar, 1970).
-            **Concluzie:** Minimul global la unul din cele 64 vârfuri. ∎
+            $$\min_{X \in D(T)} f(X) = \min_{X \in \mathcal{V}(T)} f(X)$$
             
-            **💻 Implementare:** `agent_tester.py` → `ataca()` — 64 măști binare
+            <strong>Demonstratie.</strong>
+            - <strong>Pasul 1:</strong> $x_1$ apare cu coeficientul $-1/2$. O functie liniara pe un interval isi atinge minimul la o extremitate. Pentru a minimiza $f$, trebuie sa maximizam $x_1$ si sa minimizam $x_2$.
+            - <strong>Pasul 2:</strong> $g(u,v) = \sqrt{u^2+v^2}$ este o functie convexa. Pe un domeniu dreptunghiular, maximul unei functii convexe se atinge la varfuri (Rockafellar, 1970, Corolarul 32.3.4).
+            - <strong>Concluzie:</strong> Minimul global se atinge la unul dintre cele $2^6 = 64$ varfuri. $\square$
+            
+            <strong>Implicatie practica:</strong> Enumerarea exhaustiva a celor 64 de colturi ofera <strong>garantia absoluta</strong> ca niciun defect nu scapa nedetectat, intr-un timp de sub 1 milisecunda.
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>agent_tester.py</code> → metoda <code>ataca()</code> — itereaza peste 64 de masti binare
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 4. Corner Localization Theorem — the mathematical guarantee
-            $$\\min_{X \\in D(T)} f(X) = \\min_{X \\in \\mathcal{V}(T)} f(X)$$
-            where $\\mathcal{V}(T)$ = the $2^6 = 64$ vertices.
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Mathematical guarantee of finding the worst case without iterative methods.
+                </p>
+            </div>
             
-            **Step 1:** $x_1$ with $-1/2$ → min at max tolerance. $x_2$ with $+1/2$ → min at min tolerance.
-            **Step 2:** $g(u,v) = \\sqrt{u^2+v^2}$ is convex → max on rectangle at vertices (Rockafellar, 1970).
-            **Conclusion:** Global minimum at one of 64 vertices. ∎
+            <strong>Statement.</strong> Let $D(T)$ be the tolerance domain and $\mathcal{V}(T)$ the set of $2^6 = 64$ vertices. Then:
             
-            **💻 Implementation:** `agent_tester.py` → `ataca()` — 64 bit masks
+            $$\min_{X \in D(T)} f(X) = \min_{X \in \mathcal{V}(T)} f(X)$$
+            
+            <strong>Proof.</strong>
+            - <strong>Step 1:</strong> $x_1$ appears with $-1/2$. To minimize $f$, maximize $x_1$ and minimize $x_2$.
+            - <strong>Step 2:</strong> $g(u,v) = \sqrt{u^2+v^2}$ is convex. On a rectangle, a convex function's maximum is at the vertices (Rockafellar, 1970).
+            - <strong>Conclusion:</strong> The global minimum is at one of the $2^6 = 64$ vertices. $\square$
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>agent_tester.py</code> → method <code>ataca()</code> — iterates over 64 bit masks
+            </div>
             """)
     
-    # ---------- TAB 5.5: NEURONUL FRACȚIONAR ----------
+    # ---------- TAB 5.5: NEURONUL FRACTIONAR ----------
     with tm5:
+        st.markdown("### 5. " + ("Neuronul fractionar" if st.session_state.lang == 'ro' else "The Fractional Neuron"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 5. Neuronul fracționar — memoria lungă și controlul adaptiv
-            **Problemă:** Cum facem sistemul agresiv la defecte și precaut când e stabil?
-            **Răspuns:** Prin neuron cu **dinamică fracționară** (memorie lungă).
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Controlul adaptiv al ratei de ajustare a tolerantelor, folosind memoria lunga a calculului fractionar.
+                </p>
+            </div>
             
-            ---
-            #### Derivata Grünwald-Letnikov
-            $$D^{\\alpha} y(t) = \\lim_{h \\to 0} \\frac{1}{h^{\\alpha}} \\sum_{j=0}^{\\infty} (-1)^j \\binom{\\alpha}{j} y(t - jh)$$
+            <strong>Derivata Grunwald-Letnikov.</strong>
             
-            $|w_j| = |\\binom{\\alpha}{j}|$ descresc **algebric** (ca $j^{-\\alpha-1}$), nu exponențial.
+            $$D^{\alpha} y(t) = \lim_{h \to 0} \frac{1}{h^{\alpha}} \sum_{j=0}^{\infty} (-1)^j \binom{\alpha}{j} y(t - jh)$$
             
-            #### Implementare discretă
-            Semnal: $y(t) = +1$ (DEFECT) sau $-1$ (OK).
-            $$u(t) = \\sum_{j=0}^{19} w_j \\cdot y(t-j), \\quad \\beta(t) = \\frac{1}{1 + e^{-u(t)}} \\in (0, 1)$$
+            Ponderile $|w_j| = |\binom{\alpha}{j}|$ descresc <strong>algebric</strong> (ca $j^{-\alpha-1}$), oferind memorie lunga — evenimentele din trecutul indepartat inca influenteaza output-ul.
             
-            $\\beta(t)$ modulează pasul: $\\delta_{\\text{efectiv}} = \\beta \\cdot \\delta$.
-            - $\\beta \\to 1$ → agresiv (pași mari)
-            - $\\beta \\to 0$ → precaut (pași mici)
+            <strong>Implementare discreta.</strong> Semnal de intrare: $y(t) = +1$ (DEFECT) sau $-1$ (OK).
             
-            Experimental ($\\alpha = 0.7$): $\\beta \\approx 0.85$ (defecte) → $0.44$ → $0.14$ (OK).
+            $$u(t) = \sum_{j=0}^{19} w_j \cdot y(t-j), \quad \beta(t) = \frac{1}{1 + e^{-u(t)}} \in (0, 1)$$
             
-            **💻 Implementare:** `neuron_fractionar.py` → `NeuronFractionar` (~30 linii)
+            <strong>Rol in sistem.</strong> Factorul $\beta(t)$ moduleaza pasul de ajustare: $\delta_{\text{efectiv}} = \beta \cdot \delta$.
+            - $\beta \to 1$: ajustari agresive (faza de defecte)
+            - $\beta \to 0$: ajustari fine (faza de optimizare)
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>neuron_fractionar.py</code> → clasa <code>NeuronFractionar</code> (~30 linii)
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 5. The Fractional Neuron — long memory and adaptive control
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Adaptive control of the tolerance adjustment rate, using the long memory of fractional calculus.
+                </p>
+            </div>
             
-            #### Grünwald-Letnikov Fractional Derivative
-            $$D^{\\alpha} y(t) = \\lim_{h \\to 0} \\frac{1}{h^{\\alpha}} \\sum_{j=0}^{\\infty} (-1)^j \\binom{\\alpha}{j} y(t - jh)$$
+            <strong>Grunwald-Letnikov Derivative.</strong>
             
-            Weights $|w_j|$ decay **algebraically** (as $j^{-\\alpha-1}$), not exponentially.
+            $$D^{\alpha} y(t) = \lim_{h \to 0} \frac{1}{h^{\alpha}} \sum_{j=0}^{\infty} (-1)^j \binom{\alpha}{j} y(t - jh)$$
             
-            #### Discrete Implementation
-            $$u(t) = \\sum_{j=0}^{19} w_j \\cdot y(t-j), \\quad \\beta(t) = \\frac{1}{1 + e^{-u(t)}}$$
+            <strong>Discrete implementation.</strong>
             
-            $\\beta \\to 1$ = aggressive, $\\beta \\to 0$ = cautious.
+            $$u(t) = \sum_{j=0}^{19} w_j \cdot y(t-j), \quad \beta(t) = \frac{1}{1 + e^{-u(t)}}$$
             
-            **💻 Implementation:** `neuron_fractionar.py` → `NeuronFractionar` (~30 lines)
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>neuron_fractionar.py</code> → class <code>NeuronFractionar</code> (~30 lines)
+            </div>
             """)
     
     # ---------- TAB 5.6: CUANTIFICAREA INCERTITUDINII ----------
     with tm6:
+        st.markdown("### 6. " + ("Cuantificarea incertitudinii" if st.session_state.lang == 'ro' else "Uncertainty Quantification"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 6. Cuantificarea incertitudinii — estimarea riscului de defect
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Estimarea probabilitatii reale de defect dupa optimizare, folosind un model stochastic realist al procesului de fabricatie.
+                </p>
+            </div>
             
-            **Problemă:** După optimizare, care e probabilitatea reală de defect?
-            **Răspuns:** Prin **simulare Monte Carlo** cu model stochastic realist.
+            <strong>Modelul stochastic.</strong> Fiecare dimensiune este modelata ca o variabila normala (Gaussiana):
             
-            ---
-            #### Modelul stochastic
-            $$x_i \\sim \\mathcal{N}(x_i^{\\text{nom}}, \\sigma_i^2), \\quad \\sigma_i = \\frac{t_i}{3}$$
+            $$x_i \sim \mathcal{N}(x_i^{\text{nom}}, \sigma_i^2), \quad \sigma_i = \frac{t_i}{3}$$
             
-            **Justificare:** Teorema limitei centrale (Feller, 1971) + regula $3\\sigma$ din Six Sigma (Pyzdek & Keller, 2014).
+            <strong>Justificare:</strong> Teorema limitei centrale (Feller, 1971) + regula $3\sigma$ din Six Sigma (Pyzdek & Keller, 2014).
             
-            #### Estimatorul Monte Carlo
-            $$\\hat{P}_{\\text{defect}} = \\frac{1}{N} \\sum_{k=1}^{N} \\mathbf{1}_{\\{f(X_k) \\leq 0\\}}$$
+            <strong>Estimatorul Monte Carlo.</strong>
             
-            Nedeplasat, convergent. $\\text{Var} \\leq 1/(4N)$. Pentru $N = 5.000$, eroarea standard $< 0.007$.
+            $$\hat{P}_{\text{defect}} = \frac{1}{N} \sum_{k=1}^{N} \mathbf{1}_{\{f(X_k) \leq 0\}}$$
             
-            #### Integrarea în sistem
-            1. În bucla de optimizare: mini Monte Carlo la fiecare iterație
-            2. La final: Monte Carlo complet pe toleranțele optime
+            Nedeplasat, convergent. $\text{Var} \leq 1/(4N)$. Pentru $N = 5.000$, eroarea standard $< 0.007$.
             
-            **Noutatea:** UQ integrat în feedback, nu post-optimizare separat.
-            **💻 Implementare:** `np.random.normal(loc=nom, scale=t/3)` în aplicație
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>np.random.normal(loc=nom, scale=t/3)</code> in aplicatia Streamlit
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 6. Uncertainty Quantification — estimating defect risk
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Estimating the real defect probability after optimization, using a realistic stochastic manufacturing model.
+                </p>
+            </div>
             
-            #### Stochastic Model
-            $$x_i \\sim \\mathcal{N}(x_i^{\\text{nom}}, \\sigma_i^2), \\quad \\sigma_i = \\frac{t_i}{3}$$
+            <strong>Stochastic Model.</strong>
             
-            Justified by Central Limit Theorem (Feller, 1971) + Six Sigma $3\\sigma$ rule (Pyzdek & Keller, 2014).
+            $$x_i \sim \mathcal{N}(x_i^{\text{nom}}, \sigma_i^2), \quad \sigma_i = \frac{t_i}{3}$$
             
-            #### Monte Carlo Estimator
-            $$\\hat{P}_{\\text{defect}} = \\frac{1}{N} \\sum_{k=1}^{N} \\mathbf{1}_{\\{f(X_k) \\leq 0\\}}$$
+            <strong>Monte Carlo Estimator.</strong>
             
-            Unbiased, consistent. For $N = 5.000$, standard error $< 0.007$.
+            $$\hat{P}_{\text{defect}} = \frac{1}{N} \sum_{k=1}^{N} \mathbf{1}_{\{f(X_k) \leq 0\}}$$
             
-            **Novelty:** UQ integrated into feedback loop, not separate post-optimization.
-            **💻 Implementation:** `np.random.normal(loc=nom, scale=t/3)`
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>np.random.normal(loc=nom, scale=t/3)</code> in the Streamlit app
+            </div>
             """)
     
-    # ---------- TAB 5.7: FUNCȚIA DE COST ----------
+    # ---------- TAB 5.7: FUNCTIA DE COST ----------
     with tm7:
+        st.markdown("### 7. " + ("Functia de cost si regula de ajustare" if st.session_state.lang == 'ro' else "Cost Function and Adjustment Rule"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 7. Funcția de cost și regula de ajustare
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Modelarea costului de fabricatie si definirea regulii de ajustare a tolerantelor.
+                </p>
+            </div>
             
-            #### Funcția de cost
-            $$\\text{Cost}(T) = \\sum_{i=1}^{6} \\frac{1}{t_i}$$
+            <strong>Functia de cost.</strong>
             
-            **Justificare economică:** Costul crește invers proporțional cu precizia (Singh et al., 2009; Chase & Parkinson, 1991). O toleranță de $\\pm 0.01$ mm e ~10× mai scumpă decât $\\pm 0.1$ mm.
+            $$\text{Cost}(T) = \sum_{i=1}^{6} \frac{1}{t_i}$$
             
-            #### Regula de ajustare — pas relativ
-            - **Strângere:** $t_i \\leftarrow t_i / (1 + \\delta_{\\text{efectiv}})$
-            - **Lărgire:** $t_i \\leftarrow t_i \\times (1 + \\delta_{\\text{efectiv}})$
+            <strong>Justificare economica:</strong> Costul creste invers proportional cu precizia dimensionala ceruta (Singh et al., 2009; Chase & Parkinson, 1991). O toleranta de $\pm 0.01$ mm este de aproximativ 10 ori mai scumpa decat una de $\pm 0.1$ mm.
             
-            unde $\\delta_{\\text{efectiv}} = \\beta \\cdot \\delta$, $\\delta = 0.2$.
+            <strong>Regula de ajustare — pas relativ.</strong>
+            - <strong>Strangere:</strong> $t_i \leftarrow t_i / (1 + \delta_{\text{efectiv}})$
+            - <strong>Largire:</strong> $t_i \leftarrow t_i \times (1 + \delta_{\text{efectiv}})$
             
-            **💻 Implementare:** `agent_proiectant.py` → `primeste_raport()`
+            unde $\delta_{\text{efectiv}} = \beta \cdot \delta$, cu $\delta = 0.2$ si $\beta$ de la neuronul fractionar.
+            
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>agent_proiectant.py</code> → metoda <code>primeste_raport()</code>
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 7. Cost Function and Adjustment Rule
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Modeling manufacturing cost and defining the tolerance adjustment rule.
+                </p>
+            </div>
             
-            $$\\text{Cost}(T) = \\sum_{i=1}^{6} \\frac{1}{t_i}$$
+            <strong>Cost Function.</strong>
             
-            **Economic justification:** Cost increases inversely with precision (Singh et al., 2009; Chase & Parkinson, 1991).
+            $$\text{Cost}(T) = \sum_{i=1}^{6} \frac{1}{t_i}$$
             
-            #### Adjustment Rule
-            - **Tightening:** $t_i \\leftarrow t_i / (1 + \\delta_{\\text{effective}})$
-            - **Widening:** $t_i \\leftarrow t_i \\times (1 + \\delta_{\\text{effective}})$
+            <strong>Adjustment Rule.</strong>
+            - <strong>Tightening:</strong> $t_i \leftarrow t_i / (1 + \delta_{\text{effective}})$
+            - <strong>Widening:</strong> $t_i \leftarrow t_i \times (1 + \delta_{\text{effective}})$
             
-            $\\delta_{\\text{effective}} = \\beta \\cdot \\delta$, $\\delta = 0.2$.
-            
-            **💻 Implementation:** `agent_proiectant.py` → `primeste_raport()`
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>agent_proiectant.py</code> → method <code>primeste_raport()</code>
+            </div>
             """)
     
-    # ---------- TAB 5.8: CONVERGENȚA ----------
+    # ---------- TAB 5.8: CONVERGENTA ----------
     with tm8:
+        st.markdown("### 8. " + ("Convergenta sistemului" if st.session_state.lang == 'ro' else "System Convergence"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 8. Convergența sistemului multi-agent
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Stabilirea conditiilor in care sistemul a atins solutia optima si se poate opri.
+                </p>
+            </div>
             
-            #### Criteriul de convergență
-            1. **Calitate:** $f(X) > -0.01$ mm pentru toate cele 64 colțuri
-            2. **Stabilitate:** 2 iterații consecutive OK
+            <strong>Criteriul de convergenta.</strong>
+            1. <strong>Calitate:</strong> $f(X) > -0.01$ mm pentru toate cele 64 de colturi
+            2. <strong>Stabilitate:</strong> 2 iteratii consecutive OK
             
-            #### Demonstrația convergenței
-            **1. Monotonitatea strângerii:** $t_j \\leftarrow t_j/(1+\\delta) < t_j$. Domeniul se contractă.
-            **2. Finitudinea explorării:** Maxim 6 eșecuri de lărgire ($\\mathcal{F}$).
-            **3. Mărginirea inferioară:** $t_{\\min} = 0.01$ mm.
-            **4. Neuronul fracționar:** $\\beta$ scade brusc la tranziție, prevenind oscilațiile.
+            <strong>Demonstratia convergentei.</strong>
+            - <strong>Monotonitatea strangerii:</strong> $t_j \leftarrow t_j/(1+\delta) < t_j$. Domeniul se contracta.
+            - <strong>Finitudinea explorarii:</strong> Maxim 6 esecuri de largire.
+            - <strong>Marginirea inferioara:</strong> $t_{\min} = 0.01$ mm.
+            - <strong>Neuronul fractionar:</strong> $\beta$ scade brusc la tranzitie, prevenind oscilatiile.
             
-            #### Garanția oferită
-            **Absolută** (nu statistică): niciuna din cele 64 combinații extreme nu produce interferență.
-            Aceeași clasă de garanție ca Worst-Case, dar la cost finit.
+            <strong>Garantia oferita:</strong> <strong>Absoluta</strong> (nu statistica) — niciuna din cele 64 de combinatii extreme nu produce interferenta.
             
-            **💻 Implementare:** `principal.py` → bucla principală
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementare:</strong> <code>principal.py</code> → bucla principala cu criteriul de oprire
+            </div>
             """)
         else:
-            st.markdown("""
-            ### 8. Convergence of the Multi-Agent System
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Establishing the conditions under which the system has reached the optimal solution.
+                </p>
+            </div>
             
-            #### Convergence Criterion
-            1. **Quality:** $f(X) > -0.01$ mm for all 64 corners
-            2. **Stability:** 2 consecutive OK iterations
+            <strong>Convergence Criterion.</strong>
+            1. <strong>Quality:</strong> $f(X) > -0.01$ mm for all 64 corners
+            2. <strong>Stability:</strong> 2 consecutive OK iterations
             
-            #### Convergence Proof
-            **1. Monotonicity:** $t_j \\leftarrow t_j/(1+\\delta) < t_j$. Domain contracts.
-            **2. Finiteness:** At most 6 failed widenings.
-            **3. Lower bound:** $t_{\\min} = 0.01$ mm.
-            **4. Fractional neuron:** $\\beta$ drops sharply at transition, preventing oscillations.
+            <strong>Guarantee:</strong> <strong>Absolute</strong> (not statistical) — none of the 64 extreme combinations produces interference.
             
-            #### Guarantee
-            **Absolute** (not statistical): none of the 64 extreme combinations produces interference.
-            
-            **💻 Implementation:** `principal.py` → main loop
+            <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
+                <strong>💻 Implementation:</strong> <code>principal.py</code> → main loop with stopping criterion
+            </div>
             """)
     
-    # ---------- TAB 5.9: LIMITĂRI ----------
+    # ---------- TAB 5.9: LIMITARI ----------
     with tm9:
+        st.markdown("### 9. " + ("Limitari si consideratii" if st.session_state.lang == 'ro' else "Limitations and Considerations"))
+        
         if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 9. Limitări și considerații
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Obiectiv:</strong> Identificarea limitarilor actuale si a directiilor de dezvoltare viitoare.
+                </p>
+            </div>
             
-            #### Limitări actuale
-            1. **Scalabilitatea:** $2^n$ colțuri devine prohibitiv pentru $n > 20$. Necesită strategie hibridă.
-            2. **Modelul de cost simplificat:** $\\sum 1/t_i$ e o aproximare; costul real depinde de proces.
-            3. **Independența cotelor:** În practică, unele cote pot fi corelate.
-            4. **Analiză pur geometrică:** Fără deformații elastice, dilatații termice, uzură.
-            5. **Geometrie simplă:** 2 știfturi, 2 găuri. Generalizarea necesită adaptarea funcției de joc.
+            <strong>Limitari actuale.</strong>
             
-            ---
-            #### Considerații
-            - Pragul de defect ($-0.01$ mm) e calibrat empiric. Pentru aplicații critice, poate fi redus.
-            - Distribuția normală ($3\\sigma$) e rezonabilă pentru procese controlate statistic.
-            - Costul calculat e o măsură **relativă**, nu absolută (nu în unități monetare).
+            1. <strong>Scalabilitatea:</strong> $2^n$ colturi devine prohibitiv pentru $n > 20$. Necesita strategie hibrida (enumerare pentru cotele critice + esantionare Monte Carlo pentru restul).
+            2. <strong>Modelul de cost simplificat:</strong> $\sum 1/t_i$ este o aproximare. Costul real depinde de procesul de fabricatie specific.
+            3. <strong>Independenta cotelor:</strong> In practica, unele cote pot fi corelate (gauri realizate cu aceeasi scula).
+            4. <strong>Analiza pur geometrica:</strong> Nu sunt incluse deformatii elastice, dilatatii termice sau efecte de uzura.
+            5. <strong>Geometrie simpla:</strong> Generalizarea la ansambluri complexe necesita adaptarea functiei de joc.
+            
+            <strong>Consideratii privind interpretarea.</strong>
+            - Pragul de defect ($-0.01$ mm) este calibrat empiric. Pentru aplicatii critice, poate fi redus.
+            - Distributia normala ($3\sigma$) este rezonabila pentru procese controlate statistic, dar nu universal valabila.
+            - Costul calculat este o masura <strong>relativa</strong>, nu absoluta (nu in unitati monetare).
             """)
         else:
-            st.markdown("""
-            ### 9. Limitations and Considerations
+            st.markdown(r"""
+            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
+                <p style="font-size: 1rem; line-height: 1.7;">
+                <strong>Objective:</strong> Identifying current limitations and future development directions.
+                </p>
+            </div>
             
-            #### Current Limitations
-            1. **Scalability:** $2^n$ becomes prohibitive for $n > 20$. Needs hybrid strategy.
-            2. **Simplified cost model:** $\\sum 1/t_i$ is an approximation.
-            3. **Independent dimensions:** Some may be correlated in practice.
-            4. **Purely geometric:** No elastic deformations, thermal expansion, or wear.
-            5. **Simple geometry:** 2 pins, 2 holes. Generalization requires gap function adaptation.
+            <strong>Current Limitations.</strong>
             
-            ---
-            #### Considerations
+            1. <strong>Scalability:</strong> $2^n$ corners becomes prohibitive for $n > 20$.
+            2. <strong>Simplified cost model:</strong> $\sum 1/t_i$ is an approximation.
+            3. <strong>Independent dimensions:</strong> Some may be correlated in practice.
+            4. <strong>Purely geometric analysis:</strong> No elastic deformations or thermal expansion.
+            5. <strong>Simple geometry:</strong> Generalization requires gap function adaptation.
+            
+            <strong>Interpretation Considerations.</strong>
             - Defect threshold ($-0.01$ mm) is empirically calibrated.
-            - Normal distribution ($3\\sigma$) is reasonable for statistically controlled processes.
-            - Calculated cost is a **relative** measure, not absolute monetary value.
+            - Normal distribution ($3\sigma$) is reasonable for controlled processes.
+            - Calculated cost is a <strong>relative</strong> measure, not absolute monetary value.
             """)
