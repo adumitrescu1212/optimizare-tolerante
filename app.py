@@ -205,7 +205,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4
 # TAB 1: ACASĂ
 # ================================================================
 with tab1:
-        if st.session_state.lang == 'ro':
+    if st.session_state.lang == 'ro':
         st.markdown("""
         <div style="background: #f8f9fa; border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
             <p style="font-size: 1.05rem; margin: 0 0 10px 0;"><strong>Procedura de utilizare a sistemului</strong></p>
