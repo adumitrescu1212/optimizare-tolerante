@@ -346,7 +346,7 @@ with tab2:
         c3.metric(t['cost_init'], f"{np.sum(1.0/(tolerante_init + 1e-9)):.2f}")
         
         if st.session_state.lang == 'ro':
-            st.markdown(f"> **Interpretare:** Sistemul a convergit în **{iteratii} iterații**. Costul a crescut de la **{np.sum(1.0/(tolerante_init + 1e-9)):.2f}** la **{proiectant.calculeaza_cost():.2f}**. Aceasta este frontiera de fezabilitate.")
+            st.markdown(f"> **Interpretare:** Sistemul a convergit in **{iteratii} iteratii**. Costul a crescut de la **{np.sum(1.0/(tolerante_init + 1e-9)):.2f}** la **{proiectant.calculeaza_cost():.2f}**. Aceasta este frontiera de fezabilitate.")
         else:
             st.markdown(f"> **Interpretation:** Converged in **{iteratii} iterations**. Cost increased from **{np.sum(1.0/(tolerante_init + 1e-9)):.2f}** to **{proiectant.calculeaza_cost():.2f}**.")
         
@@ -384,13 +384,10 @@ with tab2:
         })
         st.dataframe(df_comp, use_container_width=True, hide_index=True)
         
-        csv = pd.DataFrame(istoric).to_csv(index=False).encode('utf-8')
-        st.download_button(t['export'], csv, 'istoric_optimizare.csv', 'text/csv')
-                # ---------- Combinația critică ----------
+        # ---------- Combinația critică ----------
         st.divider()
         st.header("🔍 " + ("Combinația critică (cel mai rău caz)" if st.session_state.lang == 'ro' else "Critical Combination (Worst Case)"))
         
-        # Reluăm căutarea pentru a extrage valorile exacte
         tester2 = AgentTester(alpha=alpha, max_iteratii=500)
         rezultat_critic, X_critic, cota_critic = tester2.ataca(proiectant.propune_tolerante())
         joc_critic, j1, j2 = functia_de_joc(X_critic)
@@ -401,12 +398,12 @@ with tab2:
             ('Valoare critică' if st.session_state.lang == 'ro' else 'Critical Value'): np.round(X_critic, 5),
             ('Abatere' if st.session_state.lang == 'ro' else 'Deviation'): np.round(X_critic - valori_nominale, 5),
             ('Direcție' if st.session_state.lang == 'ro' else 'Direction'): [
-                '🔼 Maxim' if X_critic[i] > valori_nominale[i] else '🔽 Minim' for i in range(6)
+                'Maxim' if X_critic[i] > valori_nominale[i] else 'Minim' for i in range(6)
             ]
         })
         st.dataframe(df_critic, use_container_width=True, hide_index=True)
         
-                if st.session_state.lang == 'ro':
+        if st.session_state.lang == 'ro':
             st.markdown(f"""
             > **Interpretare:** Tabelul arata combinatia exacta de dimensiuni care produce cel mai mic joc 
             (joc = **{joc_critic:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea 
@@ -421,6 +418,9 @@ with tab2:
             validation. The *Direction* column indicates whether the dimension is at maximum or minimum 
             tolerance. Dimension **{cota_critic + 1}** has the largest relative deviation.
             """)
+        
+        csv = pd.DataFrame(istoric).to_csv(index=False).encode('utf-8')
+        st.download_button(t['export'], csv, 'istoric_optimizare.csv', 'text/csv')
         st.success("👈 " + ("Mergi la tab-ul Grafice." if st.session_state.lang == 'ro' else "Go to Charts tab."))
     else:
         st.info(t['wait'])
