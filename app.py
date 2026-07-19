@@ -164,7 +164,13 @@ with tab1:
             </div>
             """, unsafe_allow_html=True)
         with col2:
-            st.image("ansamblu.gif", width=380)
+                       st.markdown("""
+            <div style="text-align: center;">
+                <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
+                     width="380" 
+                     style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            </div>
+            """, unsafe_allow_html=True)
     else:
         col1, col2 = st.columns([1, 1])
         with col1:
@@ -181,7 +187,13 @@ with tab1:
             </div>
             """, unsafe_allow_html=True)
         with col2:
-            st.image("ansamblu.gif", width=380)
+                        st.markdown("""
+            <div style="text-align: center;">
+                <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
+                     width="380" 
+                     style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            </div>
+            """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     
