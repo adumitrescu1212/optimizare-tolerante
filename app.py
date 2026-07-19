@@ -316,9 +316,6 @@ with tab1:
 # ================================================================
 # TAB 2: OPTIMIZARE
 # ================================================================
-```
-
-Ăsta e tot codul până la Tab 2, curat și fără duplicate. Copiază-l și înlocuiește tot ce ai în `app.py`.
 with tab2:
     st.title(t['tab2'])
     
