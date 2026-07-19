@@ -1,3 +1,4 @@
+```python
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -5,46 +6,46 @@ from agent_tester import AgentTester
 from agent_proiectant import AgentProiectant
 from model_matematic import functia_de_joc, valori_nominale
 
-st.set_page_config(page_title="Optimizare Toleranțe", page_icon="⚙️", layout="wide")
+st.set_page_config(page_title="Optimizare Tolerante", page_icon="⚙️", layout="wide")
 
-# ---------- Dicționar traduceri ----------
+# ---------- Dictionar traduceri ----------
 LANG = {
     'ro': {
-        'tab1': "🏠 Acasă", 'tab2': "📊 Optimizare", 'tab3': "📈 Grafice",
-        'tab4': "📖 Despre", 'tab5': "📐 Matematică",
+        'tab1': "🏠 Acasa", 'tab2': "📊 Optimizare", 'tab3': "📈 Grafice",
+        'tab4': "📖 Despre", 'tab5': "📐 Matematica",
         'params': "⚡ Parametri",
-        'alpha': "Alpha (memorie fracționară)",
-        'alpha_help': "0.1 = memorie lungă | 1.0 = memorie scurtă",
+        'alpha': "Alpha (memorie fractionara)",
+        'alpha_help': "0.1 = memorie lunga | 1.0 = memorie scurta",
         'delta': "Delta (pas ajustare)",
-        'delta_help': "Cât de mult se modifică toleranțele la fiecare pas",
-        'tol': "Toleranță inițială (mm)",
-        'tol_help': "Toate cele 6 cote pornesc cu această valoare",
-        'run': "▶️ Rulează optimizarea",
-        'wait': "Configurează parametrii în panoul din stânga și apasă **Rulează optimizarea**.",
+        'delta_help': "Cat de mult se modifica tolerantele la fiecare pas",
+        'tol': "Toleranta initiala (mm)",
+        'tol_help': "Toate cele 6 cote pornesc cu aceasta valoare",
+        'run': "▶️ Ruleaza optimizarea",
+        'wait': "Configureaza parametrii in panoul din stanga si apasa **Ruleaza optimizarea**.",
         'defect': "🔴 DEFECT la cota",
         'ok': "🟢 OK",
-        'conv': "✅ CONVERGENȚĂ atinsă în",
-        'iterations': "Iterații totale",
+        'conv': "✅ CONVERGENTA atinsa in",
+        'iterations': "Iteratii totale",
         'cost_opt': "Cost optim",
-        'cost_init': "Cost inițial",
-        'tol_header': "Toleranțe optime",
+        'cost_init': "Cost initial",
+        'tol_header': "Tolerante optime",
         'mc_header': "🎲 Simulare Monte Carlo",
-        'mc_samples': "Eșantioane",
-        'mc_defects': "Defecte găsite",
+        'mc_samples': "Esantioane",
+        'mc_defects': "Defecte gasite",
         'mc_prob': "Probabilitate de defect",
-        'mc_dist': "Distribuție",
-        'comp_header': "📊 Comparație cu metodele clasice",
-        'export': "📥 Exportă rezultatele (CSV)",
-        'grafice_warn': "⚠️ Rulează mai întâi optimizarea din tab-ul Optimizare.",
-        'history': "📋 Istoricul complet al iterațiilor",
-        'chart_cost': "Evoluția costului",
+        'mc_dist': "Distributie",
+        'comp_header': "📊 Comparatie cu metodele clasice",
+        'export': "📥 Exporta rezultatele (CSV)",
+        'grafice_warn': "⚠️ Ruleaza mai intai optimizarea din tab-ul Optimizare.",
+        'history': "📋 Istoricul complet al iteratiilor",
+        'chart_cost': "Evolutia costului",
         'chart_beta': "Dinamica Beta",
-        'chart_joc': "Evoluția jocului minim",
-        'cap_cost': "Costul crește pe măsură ce toleranțele sunt strânse. Un cost mai mic = fabricație mai ieftină.",
-        'cap_beta': "Beta reflectă starea neuronului fracționar. ~0.85 = sistem alert (strânge agresiv). ~0.15 = sistem stabil (ajustări fine).",
-        'cap_joc': "Jocul minim evoluează de la negativ (interferență) spre zero. Pozitiv = ansamblul funcționează.",
+        'chart_joc': "Evolutia jocului minim",
+        'cap_cost': "Costul creste pe masura ce tolerantele sunt stranse. Un cost mai mic = fabricatie mai ieftina.",
+        'cap_beta': "Beta reflecta starea neuronului fractionar. ~0.85 = sistem alert (strange agresiv). ~0.15 = sistem stabil (ajustari fine).",
+        'cap_joc': "Jocul minim evolueaza de la negativ (interferenta) spre zero. Pozitiv = ansamblul functioneaza.",
         'joc_label': "Joc =",
-        'cote': ['Diametru știft', 'Diametru gaură', 'DistX bază', 'DistY bază', 'DistX capac', 'DistY capac'],
+        'cote': ['Diametru stift', 'Diametru gaura', 'DistX baza', 'DistY baza', 'DistX capac', 'DistY capac'],
     },
     'en': {
         'tab1': "🏠 Home", 'tab2': "📊 Optimization", 'tab3': "📈 Charts",
@@ -85,7 +86,7 @@ LANG = {
     }
 }
 
-# ---------- Inițializare ----------
+# ---------- Initializare ----------
 if 'lang' not in st.session_state:
     st.session_state.lang = 'ro'
 if 'theme' not in st.session_state:
@@ -127,91 +128,44 @@ with st.sidebar:
     
     st.divider()
     run = st.button(t['run'], type="primary", use_container_width=True)
-    
+
 # ---------- Dark theme ----------
 if st.session_state.theme == 'dark':
     st.markdown("""
     <style>
         .stApp { background-color: #0e1117 !important; color: #fafafa !important; }
-        
-        /* Toate div-urile cu background deschis */
-        div[style*="background: #f8f9fa"] {
-            background-color: #1a1c23 !important;
-            border-color: #2d3139 !important;
-        }
-        div[style*="background: #f0f4ff"] {
-            background-color: #1a1c23 !important;
-            border-color: #2d3139 !important;
-        }
-        div[style*="background: linear-gradient"] {
-            opacity: 0.9;
-        }
-        
-        /* Texte in elemente cu fundal deschis */
+        div[style*="background: #f8f9fa"] { background-color: #1a1c23 !important; border-color: #2d3139 !important; }
+        div[style*="background: #f0f4ff"] { background-color: #1a1c23 !important; border-color: #2d3139 !important; }
+        div[style*="background: linear-gradient"] { opacity: 0.9; }
         .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4,
-        .stMarkdown li, .stMarkdown strong {
-            color: #e0e0e0 !important;
-        }
-        
-        /* Exceptie: textul alb pe gradient mov ramane alb */
+        .stMarkdown li, .stMarkdown strong { color: #e0e0e0 !important; }
         div[style*="background: linear-gradient"] p,
-        div[style*="background: linear-gradient"] strong {
-            color: white !important;
-        }
-        
-        /* Metric cards */
-        div[data-testid="stMetric"] {
-            background-color: #1a1c23 !important;
-        }
-        div[data-testid="stMetric"] label {
-            color: #999 !important;
-        }
-        div[data-testid="stMetric"] div {
-            color: #fafafa !important;
-        }
-        
-        /* Blockquote */
-        blockquote {
-            background-color: #1a1c23 !important;
-            border-left: 4px solid #667eea !important;
-            color: #e0e0e0 !important;
-        }
-        
-        /* DataFrame */
-        .stDataFrame > div > div {
-            background-color: #1a1c23 !important;
-        }
-        
-        /* Info/Warning/Success boxes */
-        div[data-testid="stAlert"] {
-            background-color: #1a1c23 !important;
-        }
-        
-        /* Tabs */
-        .stTabs [data-baseweb="tab-list"] {
-            background-color: #1a1c23 !important;
-        }
-        .stTabs [aria-selected="true"] {
-            background-color: #2d3139 !important;
-            color: #fafafa !important;
-        }
+        div[style*="background: linear-gradient"] strong { color: white !important; }
+        div[data-testid="stMetric"] { background-color: #1a1c23 !important; }
+        div[data-testid="stMetric"] label { color: #999 !important; }
+        div[data-testid="stMetric"] div { color: #fafafa !important; }
+        blockquote { background-color: #1a1c23 !important; border-left: 4px solid #667eea !important; color: #e0e0e0 !important; }
+        .stDataFrame > div > div { background-color: #1a1c23 !important; }
+        div[data-testid="stAlert"] { background-color: #1a1c23 !important; }
+        .stTabs [data-baseweb="tab-list"] { background-color: #1a1c23 !important; }
+        .stTabs [aria-selected="true"] { background-color: #2d3139 !important; color: #fafafa !important; }
     </style>
     """, unsafe_allow_html=True)
+
+# ---------- CSS tab-uri ----------
+st.markdown("""
+<style>
+    .stTabs [data-baseweb="tab-list"] { gap: 6px; background-color: #f0f2f6; border-radius: 10px; padding: 6px; }
+    .stTabs [data-baseweb="tab"] { border-radius: 8px; padding: 6px 18px; font-size: 15px; font-weight: 500; }
+    .stTabs [aria-selected="true"] { background-color: #ffffff; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
+</style>
+""", unsafe_allow_html=True)
+
 # ---------- Tab-uri ----------
 tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4'], t['tab5']])
 
-# --- Paleta dinamica de culori pentru elementele HTML ---
-is_dark = st.session_state.theme == 'dark'
-c = {
-    'bg_card': '#1a1c23' if is_dark else '#f8f9fa',
-    'border_card': '#2d3139' if is_dark else '#e0e0e0',
-    'text_main': '#fafafa' if is_dark else '#333333',
-    'text_muted': '#aaaaaa' if is_dark else '#555555',
-    'bg_info': '#1a1c23' if is_dark else '#f0f4ff',
-    'border_info': '#2d3139' if is_dark else '#d0d8ff',
-}
 # ================================================================
-# TAB 1: ACASĂ
+# TAB 1: ACASA
 # ================================================================
 with tab1:
     if st.session_state.lang == 'ro':
@@ -357,213 +311,14 @@ with tab1:
             <p style="margin: 4px 0; font-size: 0.95rem;">4. Consult the <strong>Mathematics</strong> tab for the theoretical foundation of each module.</p>
         </div>
         """, unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns(3)
 
-    with col1:
-        st.markdown(f"""
-        <div style="background: {c['bg_card']}; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid {c['border_card']};">
-            <h2 style="margin: 0; color: #667eea;">2</h2>
-            <p style="margin: 5px 0 0 0; color: {c['text_muted']};">Agenti software autonomi</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col2:
-        st.markdown(f"""
-        <div style="background: {c['bg_card']}; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid {c['border_card']};">
-            <h2 style="margin: 0; color: #764ba2;">64</h2>
-            <p style="margin: 5px 0 0 0; color: {c['text_muted']};">Colturi verificate exhaustiv</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col3:
-        st.markdown(f"""
-        <div style="background: {c['bg_card']}; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid {c['border_card']};">
-            <h2 style="margin: 0; color: #e74c3c;">&lt; 1s</h2>
-            <p style="margin: 5px 0 0 0; color: {c['text_muted']};">Timp de executie</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 🔴 Problema
-            In fabricatia mecanica, **tolerantele dimensionale** reprezinta un compromis fundamental:
-            - **Tolerante stranse** garanteaza asamblarea, dar costa foarte mult
-            - **Tolerante largi** sunt economice, dar risca rebuturi
-            Metodele traditionale trateaza optimizarea si analiza ca procese separate.
-            """)
-        else:
-            st.markdown("""
-            ### 🔴 The Problem
-            In mechanical manufacturing, **dimensional tolerances** represent a fundamental trade-off:
-            - **Tight tolerances** guarantee assembly but are very expensive
-            - **Wide tolerances** are economical but risk defects
-            Traditional methods treat optimization and analysis as separate processes.
-            """)
-    with col2:
-        if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 🟢 Solutia noastra
-            Un **sistem multi-agent** cu doi roboti software care invata unul de la celalalt:
-            - **🔵 Proiectantul** vrea tolerante cat mai largi (cost minim)
-            - **🔴 Testerul** ataca fiecare propunere, cautand vulnerabilitati
-            - **🧠 Neuronul fractionar** controleaza adaptiv agresivitatea
-            """)
-        else:
-            st.markdown("""
-            ### 🟢 Our Solution
-            A **multi-agent system** with two software robots that learn from each other:
-            - **🔵 The Designer** wants tolerances as wide as possible
-            - **🔴 The Tester** attacks each proposal, searching for vulnerabilities
-            - **🧠 The Fractional Neuron** adaptively controls aggressiveness
-            """)
-    
-    st.divider()
-    
-    if st.session_state.lang == 'ro':
-        st.markdown("### 🔬 Domenii de cercetare implicate")
-    else:
-        st.markdown("### 🔬 Research Areas Involved")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    with col1: st.markdown("**🤖 Inteligenta artificiala**\nSisteme multi-agent")
-    with col2: st.markdown("**📐 Calcul fractionar**\nDerivata Grunwald-Letnikov")
-    with col3: st.markdown("**⚡ Optimizare**\nCercetari operationale")
-    with col4: st.markdown("**🔧 Inginerie mecanica**\nSolidWorks CAD")
-    
-    st.divider()
-    
-    if st.session_state.lang == 'ro':
-        st.markdown(f"""
-        <div style="background: {c['bg_info']}; border-radius: 12px; padding: 25px; border: 1px solid {c['border_info']}; margin-top: 10px; color: {c['text_main']};">
-            <h4 style="margin-top: 0;">🚀 Cum incepi?</h4>
-            <table style="width: 100%; border-collapse: collapse; color: {c['text_main']};">
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configureaza parametrii</strong> in panoul din stanga (Alpha, Delta, Toleranta initiala)</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Acceseaza tab-ul <strong>📊 Optimizare</strong> si apasa <strong>▶️ Ruleaza optimizarea</strong></td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Exploreaza <strong>rezultatele</strong>: tolerante optime, grafice, Monte Carlo, comparatii</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Studiaza <strong>📐 matematica</strong> din spatele sistemului in tab-ul dedicat</td></tr>
-            </table>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown(f"""
-        <div style="background: {c['bg_info']}; border-radius: 12px; padding: 25px; border: 1px solid {c['border_info']}; margin-top: 10px; color: {c['text_main']};">
-            <h4 style="margin-top: 0;">🚀 How to Start</h4>
-            <table style="width: 100%; border-collapse: collapse; color: {c['text_main']};">
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configure parameters</strong> in the left panel (Alpha, Delta, Initial Tolerance)</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Go to the <strong>📊 Optimization</strong> tab and press <strong>▶️ Run Optimization</strong></td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Explore the <strong>results</strong>: optimal tolerances, charts, Monte Carlo, comparisons</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Study the <strong>📐 mathematics</strong> behind the system in the dedicated tab</td></tr>
-            </table>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns(3)
 
-    with col1:
-        st.markdown("""
-        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
-            <h2 style="margin: 0; color: #667eea;">2</h2>
-            <p style="margin: 5px 0 0 0; color: #555;">Agenti software autonomi</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col2:
-        st.markdown("""
-        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
-            <h2 style="margin: 0; color: #764ba2;">64</h2>
-            <p style="margin: 5px 0 0 0; color: #555;">Colturi verificate exhaustiv</p>
-        </div>
-        """, unsafe_allow_html=True)
-    with col3:
-        st.markdown("""
-        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
-            <h2 style="margin: 0; color: #e74c3c;">< 1s</h2>
-            <p style="margin: 5px 0 0 0; color: #555;">Timp de executie</p>
-        </div>
-        """, unsafe_allow_html=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 🔴 Problema
-            In fabricatia mecanica, **tolerantele dimensionale** reprezinta un compromis fundamental:
-            - **Tolerante stranse** garanteaza asamblarea, dar costa foarte mult
-            - **Tolerante largi** sunt economice, dar risca rebuturi
-            Metodele traditionale trateaza optimizarea si analiza ca procese separate.
-            """)
-        else:
-            st.markdown("""
-            ### 🔴 The Problem
-            In mechanical manufacturing, **dimensional tolerances** represent a fundamental trade-off:
-            - **Tight tolerances** guarantee assembly but are very expensive
-            - **Wide tolerances** are economical but risk defects
-            Traditional methods treat optimization and analysis as separate processes.
-            """)
-    with col2:
-        if st.session_state.lang == 'ro':
-            st.markdown("""
-            ### 🟢 Solutia noastra
-            Un **sistem multi-agent** cu doi roboti software care invata unul de la celalalt:
-            - **🔵 Proiectantul** vrea tolerante cat mai largi (cost minim)
-            - **🔴 Testerul** ataca fiecare propunere, cautand vulnerabilitati
-            - **🧠 Neuronul fractionar** controleaza adaptiv agresivitatea
-            """)
-        else:
-            st.markdown("""
-            ### 🟢 Our Solution
-            A **multi-agent system** with two software robots that learn from each other:
-            - **🔵 The Designer** wants tolerances as wide as possible
-            - **🔴 The Tester** attacks each proposal, searching for vulnerabilities
-            - **🧠 The Fractional Neuron** adaptively controls aggressiveness
-            """)
-    
-    st.divider()
-    
-    if st.session_state.lang == 'ro':
-        st.markdown("### 🔬 Domenii de cercetare implicate")
-    else:
-        st.markdown("### 🔬 Research Areas Involved")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    with col1: st.markdown("**🤖 Inteligenta artificiala**\nSisteme multi-agent")
-    with col2: st.markdown("**📐 Calcul fractionar**\nDerivata Grunwald-Letnikov")
-    with col3: st.markdown("**⚡ Optimizare**\nCercetari operationale")
-    with col4: st.markdown("**🔧 Inginerie mecanica**\nSolidWorks CAD")
-    
-    st.divider()
-    
-    if st.session_state.lang == 'ro':
-        st.markdown("""
-        <div style="background: #f0f4ff; border-radius: 12px; padding: 25px; border: 1px solid #d0d8ff; margin-top: 10px;">
-            <h4 style="margin-top: 0;">🚀 Cum incepi?</h4>
-            <table style="width: 100%; border-collapse: collapse;">
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configureaza parametrii</strong> in panoul din stanga (Alpha, Delta, Toleranta initiala)</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Acceseaza tab-ul <strong>📊 Optimizare</strong> si apasa <strong>▶️ Ruleaza optimizarea</strong></td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Exploreaza <strong>rezultatele</strong>: tolerante optime, grafice, Monte Carlo, comparatii</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Studiaza <strong>📐 matematica</strong> din spatele sistemului in tab-ul dedicat</td></tr>
-            </table>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div style="background: #f0f4ff; border-radius: 12px; padding: 25px; border: 1px solid #d0d8ff; margin-top: 10px;">
-            <h4 style="margin-top: 0;">🚀 How to Start</h4>
-            <table style="width: 100%; border-collapse: collapse;">
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configure parameters</strong> in the left panel (Alpha, Delta, Initial Tolerance)</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Go to the <strong>📊 Optimization</strong> tab and press <strong>▶️ Run Optimization</strong></td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Explore the <strong>results</strong>: optimal tolerances, charts, Monte Carlo, comparisons</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Study the <strong>📐 mathematics</strong> behind the system in the dedicated tab</td></tr>
-            </table>
-        </div>
-        """, unsafe_allow_html=True)
 # ================================================================
 # TAB 2: OPTIMIZARE
 # ================================================================
+```
+
+Ăsta e tot codul până la Tab 2, curat și fără duplicate. Copiază-l și înlocuiește tot ce ai în `app.py`.
 with tab2:
     st.title(t['tab2'])
     
