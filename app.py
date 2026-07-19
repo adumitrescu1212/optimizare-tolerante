@@ -406,13 +406,13 @@ with tab2:
         })
         st.dataframe(df_critic, use_container_width=True, hide_index=True)
         
-        if st.session_state.lang == 'ro':
+                if st.session_state.lang == 'ro':
             st.markdown(f"""
-            > **Interpretare:** Tabelul arată combinația exactă de dimensiuni care produce cel mai mic joc 
-            (joc = **{joc_critic:.4f} mm**). Aceste valori trebuie introduse în SolidWorks pentru validarea 
-            experimentală. Coloana *Direcție* indică dacă dimensiunea trebuie setată la maximul sau minimul 
-            toleranței. Cota **{cota_critic + 1}** are cea mai mare abatere relativă și este principala 
-            responsabilă pentru defect.
+            > **Interpretare:** Tabelul arata combinatia exacta de dimensiuni care produce cel mai mic joc 
+            (joc = **{joc_critic:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea 
+            experimentala. Coloana *Directie* indica daca dimensiunea trebuie setata la maximul sau minimul 
+            tolerantei. Cota **{cota_critic + 1}** are cea mai mare abatere relativa si este principala 
+            responsabila pentru defect.
             """)
         else:
             st.markdown(f"""
