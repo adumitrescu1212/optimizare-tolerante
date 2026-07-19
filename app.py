@@ -273,7 +273,7 @@ with tab1:
     
     st.divider()
     
-        if st.session_state.lang == 'ro':
+    if st.session_state.lang == 'ro':
         st.markdown("""
         <div style="background: #f0f4ff; border-radius: 12px; padding: 25px; border: 1px solid #d0d8ff; margin-top: 10px;">
             <h4 style="margin-top: 0;">🚀 Cum incepi?</h4>
