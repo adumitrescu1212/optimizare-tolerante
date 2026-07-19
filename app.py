@@ -384,21 +384,21 @@ with tab2:
         })
         st.dataframe(df_comp, use_container_width=True, hide_index=True)
         
-        # ---------- Combinația critică ----------
+           # ---------- Combinația critică ----------
         st.divider()
         st.header("🔍 " + ("Combinația critică (cel mai rău caz)" if st.session_state.lang == 'ro' else "Critical Combination (Worst Case)"))
         
         tester2 = AgentTester(alpha=alpha, max_iteratii=500)
-        rezultat_critic, X_critic, cota_critic = tester2.ataca(proiectant.propune_tolerante())
-        joc_critic, j1, j2 = functia_de_joc(X_critic)
+        rezultat_crit, X_crit, cota_crit = tester2.ataca(proiectant.propune_tolerante())
+        joc_crit, j1, j2 = functia_de_joc(X_crit)
         
         df_critic = pd.DataFrame({
             ('Cotă' if st.session_state.lang == 'ro' else 'Dimension'): t['cote'],
             ('Valoare nominală' if st.session_state.lang == 'ro' else 'Nominal Value'): valori_nominale,
-            ('Valoare critică' if st.session_state.lang == 'ro' else 'Critical Value'): np.round(X_critic, 5),
-            ('Abatere' if st.session_state.lang == 'ro' else 'Deviation'): np.round(X_critic - valori_nominale, 5),
+            ('Valoare critică' if st.session_state.lang == 'ro' else 'Critical Value'): np.round(X_crit, 5),
+            ('Abatere' if st.session_state.lang == 'ro' else 'Deviation'): np.round(X_crit - valori_nominale, 5),
             ('Direcție' if st.session_state.lang == 'ro' else 'Direction'): [
-                'Maxim' if X_critic[i] > valori_nominale[i] else 'Minim' for i in range(6)
+                'Maxim' if X_crit[i] > valori_nominale[i] else 'Minim' for i in range(6)
             ]
         })
         st.dataframe(df_critic, use_container_width=True, hide_index=True)
@@ -406,17 +406,16 @@ with tab2:
         if st.session_state.lang == 'ro':
             st.markdown(f"""
             > **Interpretare:** Tabelul arata combinatia exacta de dimensiuni care produce cel mai mic joc 
-            (joc = **{joc_critic:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea 
+            (joc = **{joc_crit:.4f} mm**). Aceste valori trebuie introduse in SolidWorks pentru validarea 
             experimentala. Coloana *Directie* indica daca dimensiunea trebuie setata la maximul sau minimul 
-            tolerantei. Cota **{cota_critic + 1}** are cea mai mare abatere relativa si este principala 
-            responsabila pentru defect.
+            tolerantei. Cota **{cota_crit + 1}** are cea mai mare abatere relativa.
             """)
         else:
             st.markdown(f"""
             > **Interpretation:** The table shows the exact dimension combination producing the smallest gap 
-            (gap = **{joc_critic:.4f} mm**). These values should be entered in SolidWorks for experimental 
+            (gap = **{joc_crit:.4f} mm**). These values should be entered in SolidWorks for experimental 
             validation. The *Direction* column indicates whether the dimension is at maximum or minimum 
-            tolerance. Dimension **{cota_critic + 1}** has the largest relative deviation.
+            tolerance. Dimension **{cota_crit + 1}** has the largest relative deviation.
             """)
         
         csv = pd.DataFrame(istoric).to_csv(index=False).encode('utf-8')
