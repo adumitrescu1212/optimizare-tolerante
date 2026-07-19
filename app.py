@@ -282,6 +282,40 @@ with tab2:
     
     if run:
         tolerante_init = np.full(6, tol_init)
+                # ---------- Combinatia critica INITIALA ----------
+        st.divider()
+        st.header("🔍 " + ("Combinatia critica INAINTE de optimizare (tolerante initiale)" if st.session_state.lang == 'ro' else "Critical Combination BEFORE optimization (initial tolerances)"))
+        
+        tester_init = AgentTester(alpha=alpha, max_iteratii=500)
+        rez_init, X_init, cota_init = tester_init.ataca(np.full(6, tol_init))
+        joc_init, _, _ = functia_de_joc(X_init)
+        
+        df_critic_init = pd.DataFrame({
+            ('Cota' if st.session_state.lang == 'ro' else 'Dimension'): t['cote'],
+            ('Valoare nominala' if st.session_state.lang == 'ro' else 'Nominal Value'): valori_nominale,
+            ('Valoare critica' if st.session_state.lang == 'ro' else 'Critical Value'): np.round(X_init, 5),
+            ('Abatere' if st.session_state.lang == 'ro' else 'Deviation'): np.round(X_init - valori_nominale, 5),
+            ('Directie' if st.session_state.lang == 'ro' else 'Direction'): [
+                'Maxim' if X_init[i] > valori_nominale[i] else 'Minim' for i in range(6)
+            ]
+        })
+        st.dataframe(df_critic_init, use_container_width=True, hide_index=True)
+        
+        if st.session_state.lang == 'ro':
+            st.markdown(
+                "> **Pentru validare CAD:** Acestea sunt valorile care trebuie introduse in SolidWorks "
+                f"pentru a reproduce interferenta. Jocul cu aceste valori este **{joc_init:.4f} mm** "
+                "(puternic negativ → interferenta vizibila)."
+            )
+        else:
+            st.markdown(
+                "> **For CAD validation:** These are the values to enter in SolidWorks "
+                f"to reproduce the interference. The gap with these values is **{joc_init:.4f} mm** "
+                "(strongly negative → visible interference)."
+            )
+        
+        st.divider()
+        st.header("⏳ " + ("Optimizare in curs..." if st.session_state.lang == 'ro' else "Optimization in progress..."))
         proiectant = AgentProiectant(valori_nominale, tolerante_init, delta=delta)
         tester = AgentTester(alpha=alpha, max_iteratii=500)
         
