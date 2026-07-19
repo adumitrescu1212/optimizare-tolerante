@@ -149,53 +149,57 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4
 # ================================================================
 with tab1:
     if st.session_state.lang == 'ro':
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            st.markdown("""
-            <h1 style="font-size: 2.2rem; margin-top: 1rem;">⚙️ Sistem Multi-Agent cu Neuron Fractionar</h1>
+        st.markdown("""
+        <div style="text-align: center;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚙️ Sistem Multi-Agent cu Neuron Fractionar</h1>
             <p style="font-size: 1.1rem; color: #666;">Optimizarea tolerantelor pentru ansambluri mecanice</p>
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin-top: 15px;">
-                <p style="font-size: 0.95rem; line-height: 1.6; margin: 0;">
-                Acest proiect propune o <strong>metoda noua</strong> de optimizare a tolerantelor,
-                bazata pe o <strong>arhitectura multi-agent adversiala</strong> cu <strong>neuron fractionar</strong>.
-                Doi agenti software interactioneaza iterativ pentru a gasi
-                <strong>cel mai ieftin set de tolerante</strong> care garanteaza functionalitatea.
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-        with col2:
-            st.markdown("""
-            <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
-                     width="500" 
-                     style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-            </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="display: flex; justify-content: center;">
+            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
+                 width="700" 
+                 style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin: 20px 0;">
+            <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: center;">
+            Acest proiect propune o <strong>metoda noua</strong> de optimizare a tolerantelor,
+            bazata pe o <strong>arhitectura multi-agent adversiala</strong> cu <strong>neuron fractionar</strong>.
+            Doi agenti software interactioneaza iterativ pentru a gasi
+            <strong>cel mai ieftin set de tolerante</strong> care garanteaza functionalitatea.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        col1, col2 = st.columns([1, 1])
-        with col1:
-            st.markdown("""
-            <h1 style="font-size: 2.2rem; margin-top: 1rem;">⚙️ Multi-Agent System with Fractional Neuron</h1>
+        st.markdown("""
+        <div style="text-align: center;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚙️ Multi-Agent System with Fractional Neuron</h1>
             <p style="font-size: 1.1rem; color: #666;">Tolerance Optimization for Mechanical Assemblies</p>
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin-top: 15px;">
-                <p style="font-size: 0.95rem; line-height: 1.6; margin: 0;">
-                This project proposes a <strong>novel method</strong> for dimensional tolerance optimization,
-                based on an <strong>adversarial multi-agent architecture</strong> with a <strong>fractional neuron</strong>.
-                Two software agents interact iteratively to find the
-                <strong>cheapest tolerance set</strong> that guarantees assembly functionality.
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-        with col2:
-            st.markdown("""
-            <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
-                     width="500" 
-                     style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-            </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="display: flex; justify-content: center;">
+            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
+                 width="700" 
+                 style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin: 20px 0;">
+            <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: center;">
+            This project proposes a <strong>novel method</strong> for dimensional tolerance optimization,
+            based on an <strong>adversarial multi-agent architecture</strong> with a <strong>fractional neuron</strong>.
+            Two software agents interact iteratively to find the
+            <strong>cheapest tolerance set</strong> that guarantees assembly functionality.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
+    
+    col1, col2, col3 = st.columns(3)
     
     col1, col2, col3 = st.columns(3)
     with col1:
