@@ -207,7 +207,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4
 with tab1:
     if st.session_state.lang == 'ro':
         st.markdown("""
-        <div style="background: #f8f9fa; border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
+        <div style="background: rgba(128, 128, 128, 0.08); border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
             <p style="font-size: 1.05rem; margin: 0 0 10px 0;"><strong>Procedura de utilizare a sistemului</strong></p>
             <p style="margin: 4px 0; font-size: 0.95rem;">1. Configurati parametrii <strong>Alpha</strong>, <strong>Delta</strong> si <strong>Toleranta initiala</strong> in panoul lateral.</p>
             <p style="margin: 4px 0; font-size: 0.95rem;">2. Accesati tab-ul <strong>Optimizare</strong> si actionati butonul <strong>Ruleaza optimizarea</strong>.</p>
@@ -217,7 +217,7 @@ with tab1:
         """, unsafe_allow_html=True)
     else:
         st.markdown("""
-        <div style="background: #f8f9fa; border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
+        <div style="background: rgba(128, 128, 128, 0.08); border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
             <p style="font-size: 1.05rem; margin: 0 0 10px 0;"><strong>System Usage Procedure</strong></p>
             <p style="margin: 4px 0; font-size: 0.95rem;">1. Configure parameters <strong>Alpha</strong>, <strong>Delta</strong>, and <strong>Initial Tolerance</strong> in the side panel.</p>
             <p style="margin: 4px 0; font-size: 0.95rem;">2. Go to the <strong>Optimization</strong> tab and press <strong>Run Optimization</strong>.</p>
