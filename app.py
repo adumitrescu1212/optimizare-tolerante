@@ -386,7 +386,7 @@ with tab2:
             m_cost.metric(t['cost_opt'], f"{cost:.2f}")
             m_beta.metric("Beta", f"{beta:.3f}")
 
-            if it % 3 == 0:
+            if it % 10 == 0:
                 progress_bar.progress(min(iteratii / 300, 1.0))
             
             if rezultat == "DEFECT":
