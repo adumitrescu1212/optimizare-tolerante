@@ -210,33 +210,77 @@ c = {
     'bg_info': '#1a1c23' if is_dark else '#f0f4ff',
     'border_info': '#2d3139' if is_dark else '#d0d8ff',
 }
-
-# ================================================================
 # ================================================================
 # TAB 1: ACASĂ
 # ================================================================
 with tab1:
+    if st.session_state.lang == 'ro':
+        st.markdown("""
+        <div style="text-align: center;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚙️ Sistem Multi-Agent cu Neuron Fractionar</h1>
+            <p style="font-size: 1.1rem; color: #666;">Optimizarea tolerantelor pentru ansambluri mecanice</p>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="display: flex; justify-content: center;">
+            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700">
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin: 20px 0;">
+            <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: center;">
+            Acest proiect propune o <strong>metoda noua</strong> de optimizare a tolerantelor,
+            bazata pe o <strong>arhitectura multi-agent adversiala</strong> cu <strong>neuron fractionar</strong>.
+            Doi agenti software interactioneaza iterativ pentru a gasi
+            <strong>cel mai ieftin set de tolerante</strong> care garanteaza functionalitatea.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div style="text-align: center;">
+            <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">⚙️ Multi-Agent System with Fractional Neuron</h1>
+            <p style="font-size: 1.1rem; color: #666;">Tolerance Optimization for Mechanical Assemblies</p>
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="display: flex; justify-content: center;">
+            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700">
+        </div>
+        """, unsafe_allow_html=True)
+        st.markdown("""
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 20px; color: white; margin: 20px 0;">
+            <p style="font-size: 0.95rem; line-height: 1.6; margin: 0; text-align: center;">
+            This project proposes a <strong>novel method</strong> for dimensional tolerance optimization,
+            based on an <strong>adversarial multi-agent architecture</strong> with a <strong>fractional neuron</strong>.
+            Two software agents interact iteratively to find the
+            <strong>cheapest tolerance set</strong> that guarantees assembly functionality.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    
     col1, col2, col3 = st.columns(3)
-
     with col1:
-        st.markdown(f"""
-        <div style="background: {c['bg_card']}; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid {c['border_card']};">
+        st.markdown("""
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
             <h2 style="margin: 0; color: #667eea;">2</h2>
-            <p style="margin: 5px 0 0 0; color: {c['text_muted']};">Agenti software autonomi</p>
+            <p style="margin: 5px 0 0 0; color: #555;">Agenti software autonomi</p>
         </div>
         """, unsafe_allow_html=True)
     with col2:
-        st.markdown(f"""
-        <div style="background: {c['bg_card']}; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid {c['border_card']};">
+        st.markdown("""
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
             <h2 style="margin: 0; color: #764ba2;">64</h2>
-            <p style="margin: 5px 0 0 0; color: {c['text_muted']};">Colturi verificate exhaustiv</p>
+            <p style="margin: 5px 0 0 0; color: #555;">Colturi verificate exhaustiv</p>
         </div>
         """, unsafe_allow_html=True)
     with col3:
-        st.markdown(f"""
-        <div style="background: {c['bg_card']}; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid {c['border_card']};">
-            <h2 style="margin: 0; color: #e74c3c;">&lt; 1s</h2>
-            <p style="margin: 5px 0 0 0; color: {c['text_muted']};">Timp de executie</p>
+        st.markdown("""
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
+            <h2 style="margin: 0; color: #e74c3c;">< 1s</h2>
+            <p style="margin: 5px 0 0 0; color: #555;">Timp de executie</p>
         </div>
         """, unsafe_allow_html=True)
     
@@ -294,27 +338,23 @@ with tab1:
     st.divider()
     
     if st.session_state.lang == 'ro':
-        st.markdown(f"""
-        <div style="background: {c['bg_info']}; border-radius: 12px; padding: 25px; border: 1px solid {c['border_info']}; margin-top: 10px; color: {c['text_main']};">
-            <h4 style="margin-top: 0;">🚀 Cum incepi?</h4>
-            <table style="width: 100%; border-collapse: collapse; color: {c['text_main']};">
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configureaza parametrii</strong> in panoul din stanga (Alpha, Delta, Toleranta initiala)</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Acceseaza tab-ul <strong>📊 Optimizare</strong> si apasa <strong>▶️ Ruleaza optimizarea</strong></td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Exploreaza <strong>rezultatele</strong>: tolerante optime, grafice, Monte Carlo, comparatii</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Studiaza <strong>📐 matematica</strong> din spatele sistemului in tab-ul dedicat</td></tr>
-            </table>
+        st.markdown("""
+        <div style="background: rgba(128, 128, 128, 0.08); border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
+            <p style="font-size: 1.05rem; margin: 0 0 10px 0;"><strong>Procedura de utilizare a sistemului</strong></p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">1. Configurati parametrii <strong>Alpha</strong>, <strong>Delta</strong> si <strong>Toleranta initiala</strong> in panoul lateral.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">2. Accesati tab-ul <strong>Optimizare</strong> si actionati butonul <strong>Ruleaza optimizarea</strong>.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">3. Analizati rezultatele: tolerante optime, simulare Monte Carlo, comparatii cu metodele clasice.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">4. Consultati tab-ul <strong>Matematica</strong> pentru fundamentarea teoretica a fiecarui modul.</p>
         </div>
         """, unsafe_allow_html=True)
     else:
-        st.markdown(f"""
-        <div style="background: {c['bg_info']}; border-radius: 12px; padding: 25px; border: 1px solid {c['border_info']}; margin-top: 10px; color: {c['text_main']};">
-            <h4 style="margin-top: 0;">🚀 How to Start</h4>
-            <table style="width: 100%; border-collapse: collapse; color: {c['text_main']};">
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configure parameters</strong> in the left panel (Alpha, Delta, Initial Tolerance)</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Go to the <strong>📊 Optimization</strong> tab and press <strong>▶️ Run Optimization</strong></td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Explore the <strong>results</strong>: optimal tolerances, charts, Monte Carlo, comparisons</td></tr>
-                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Study the <strong>📐 mathematics</strong> behind the system in the dedicated tab</td></tr>
-            </table>
+        st.markdown("""
+        <div style="background: rgba(128, 128, 128, 0.08); border-radius: 8px; padding: 20px 25px; margin-top: 10px;">
+            <p style="font-size: 1.05rem; margin: 0 0 10px 0;"><strong>System Usage Procedure</strong></p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">1. Configure parameters <strong>Alpha</strong>, <strong>Delta</strong>, and <strong>Initial Tolerance</strong> in the side panel.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">2. Go to the <strong>Optimization</strong> tab and press <strong>Run Optimization</strong>.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">3. Analyze the results: optimal tolerances, Monte Carlo simulation, comparisons with classical methods.</p>
+            <p style="margin: 4px 0; font-size: 0.95rem;">4. Consult the <strong>Mathematics</strong> tab for the theoretical foundation of each module.</p>
         </div>
         """, unsafe_allow_html=True)
     
