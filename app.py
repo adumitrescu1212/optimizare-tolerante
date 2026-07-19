@@ -145,6 +145,7 @@ st.markdown("""
 tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4'], t['tab5']])
 
 # ================================================================
+# ================================================================
 # TAB 1: ACASĂ
 # ================================================================
 with tab1:
@@ -157,9 +158,7 @@ with tab1:
         """, unsafe_allow_html=True)
         st.markdown("""
         <div style="display: flex; justify-content: center;">
-            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700"> 
-                 width="700" 
-                 style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700">
         </div>
         """, unsafe_allow_html=True)
         st.markdown("""
@@ -182,8 +181,6 @@ with tab1:
         st.markdown("""
         <div style="display: flex; justify-content: center;">
             <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700">
-                 width="700" 
-                 style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
         </div>
         """, unsafe_allow_html=True)
         st.markdown("""
@@ -200,8 +197,7 @@ with tab1:
     st.markdown("<br>", unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
-    
-    col1, col2, col3 = st.columns(3)
+
     with col1:
         st.markdown("""
         <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; text-align: center; border: 1px solid #e0e0e0;">
