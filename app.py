@@ -603,7 +603,7 @@ with tab5:
         </div>
         """, unsafe_allow_html=True)
     
-    tm1, tm2, tm3, tm4, tm5, tm6, tm7, tm8, tm9 = st.tabs([
+    tm1, tm2, tm3, tm4, tm5, tm6, tm7, tm8 = st.tabs([
         "1. " + ("Functia de joc" if st.session_state.lang == 'ro' else "Gap Function"),
         "2. " + ("Gradientul analitic" if st.session_state.lang == 'ro' else "Analytical Gradient"),
         "3. " + ("Subgradientul" if st.session_state.lang == 'ro' else "Subgradient"),
@@ -611,8 +611,7 @@ with tab5:
         "5. " + ("Neuronul fractionar" if st.session_state.lang == 'ro' else "Fractional Neuron"),
         "6. " + ("Cuantificarea incertitudinii" if st.session_state.lang == 'ro' else "Uncertainty Quantification"),
         "7. " + ("Functia de cost" if st.session_state.lang == 'ro' else "Cost Function"),
-        "8. " + ("Convergenta" if st.session_state.lang == 'ro' else "Convergence"),
-        "9. " + ("Limitari" if st.session_state.lang == 'ro' else "Limitations"),
+        "8. " + ("Convergenta" if st.session_state.lang == 'ro' else "Convergence")
     ])
     
     # ---------- TAB 5.1 ----------
@@ -684,33 +683,49 @@ with tab5:
         </div>
         """, unsafe_allow_html=True)
     
-    # ---------- TAB 5.3 ----------
+     # ---------- TAB 5.3: SUBGRADIENTUL ----------
     with tm3:
         st.markdown("### 3. " + ("Subgradientul" if st.session_state.lang == 'ro' else "Subgradient"))
         if st.session_state.lang == 'ro':
             st.markdown("""
             <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
                 <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Obiectiv:</strong> Tratarea punctelor in care $f(X) = \\min(J_1, J_2)$ nu este diferentiabila.
+                <strong>Obiectiv:</strong> Tratarea punctelor in care functia $f(X) = \\min(J_1, J_2)$ nu este diferentiabila (cand $J_1 = J_2$).
                 </p>
             </div>
             """, unsafe_allow_html=True)
+            st.markdown("**Definitie.** Conceptul de subgradient (Rockafellar, 1970) generalizeaza gradientul pentru functii nediferentiabile. Subdiferentiala functiei $f$ in punctul $X$ este:")
             st.latex(r"\partial f(X) = \text{conv}\{\nabla J_i(X) : i \in \mathcal{A}(X)\}")
-            st.markdown("**Cazul 1:** Un singur $J_i$ activ → gradientul sau. **Cazul 2:** $J_1 = J_2$ → orice combinatie convexa. Cand $d=0$: regularizare.")
+            st.markdown("unde $\\mathcal{A}(X)$ este multimea functiilor active (cele care ating minimul in $X$).")
+            st.markdown("""
+            **Cazuri practice:**
+            - **Cazul 1:** Un singur $J_i$ activ → gradientul sau este subgradientul
+            - **Cazul 2:** $J_1 = J_2$ → orice combinatie convexa a gradientilor este un subgradient valid
+            - **Cand $d = 0$:** Centrele coincid. Se aplica regularizare: $d \\leftarrow \\max(d, 10^{-8})$
+            """)
         else:
             st.markdown("""
             <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
                 <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Objective:</strong> Handling non-differentiable points of $f(X) = \\min(J_1, J_2)$.
+                <strong>Objective:</strong> Handling points where $f(X) = \\min(J_1, J_2)$ is non-differentiable (when $J_1 = J_2$).
                 </p>
             </div>
             """, unsafe_allow_html=True)
+            st.markdown("**Definition.** The subgradient (Rockafellar, 1970) generalizes the gradient for non-differentiable functions:")
             st.latex(r"\partial f(X) = \text{conv}\{\nabla J_i(X) : i \in \mathcal{A}(X)\}")
+            st.markdown("where $\\mathcal{A}(X)$ is the set of active functions (those attaining the minimum at $X$).")
+            st.markdown("""
+            **Practical cases:**
+            - **Case 1:** Single active $J_i$ → its gradient is the subgradient
+            - **Case 2:** $J_1 = J_2$ → any convex combination of gradients is valid
+            - **When $d = 0$:** Centers coincide. Regularization: $d \\leftarrow \\max(d, 10^{-8})$
+            """)
         st.markdown("""
         <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
             <strong>💻 Implementare:</strong> <code>model_matematic.py</code> → <code>calculeaza_subgradient(X)</code>
         </div>
         """, unsafe_allow_html=True)
+        
     # ---------- TAB 5.4: TEOREMA COLTURILOR ----------
     with tm4:
         st.markdown("### 4. " + ("Teorema de localizare a minimului" if st.session_state.lang == 'ro' else "Corner Localization Theorem"))
@@ -896,48 +911,4 @@ with tab5:
         </div>
         """, unsafe_allow_html=True)
     
-    # ---------- TAB 5.9: LIMITARI ----------
-    with tm9:
-        st.markdown("### 9. " + ("Limitari si consideratii" if st.session_state.lang == 'ro' else "Limitations and Considerations"))
-        if st.session_state.lang == 'ro':
-            st.markdown("""
-            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
-                <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Obiectiv:</strong> Identificarea limitarilor actuale si a directiilor de dezvoltare.
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-            st.markdown("""
-            **Limitari actuale:**
-            1. **Scalabilitatea:** $2^n$ colturi devine prohibitiv pentru $n > 20$
-            2. **Modelul de cost simplificat:** $\\sum 1/t_i$ este o aproximare
-            3. **Independenta cotelor:** In practica, unele cote pot fi corelate
-            4. **Analiza pur geometrica:** Fara deformatii elastice, dilatatii termice
-            5. **Geometrie simpla:** 2 stifturi, 2 gauri
-            
-            **Consideratii:**
-            - Pragul de defect ($-0.01$ mm) este calibrat empiric
-            - Distributia normala ($3\\sigma$) este rezonabila pentru procese controlate
-            - Costul calculat este o masura **relativa**, nu absoluta
-            """)
-        else:
-            st.markdown("""
-            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
-                <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Objective:</strong> Identifying current limitations and future directions.
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-            st.markdown("""
-            **Current Limitations:**
-            1. **Scalability:** $2^n$ becomes prohibitive for $n > 20$
-            2. **Simplified cost model**
-            3. **Independent dimensions**
-            4. **Purely geometric analysis**
-            5. **Simple geometry**
-            
-            **Considerations:**
-            - Defect threshold ($-0.01$ mm) is empirically calibrated
-            - Normal distribution ($3\\sigma$) is reasonable for controlled processes
-            - Calculated cost is a **relative** measure
-            """)
+    
