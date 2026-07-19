@@ -273,22 +273,30 @@ with tab1:
     
     st.divider()
     
-    if st.session_state.lang == 'ro':
-        st.info("""
-        ### 🚀 Cum incepi?
-        1. **Configureaza parametrii** in panoul din stanga
-        2. **Acceseaza tab-ul Optimizare** si apasa **Ruleaza optimizarea**
-        3. **Exploreaza rezultatele** — tolerante, grafice, Monte Carlo, comparatii
-        4. **Studiaza matematica** din spatele sistemului in tab-ul dedicat
-        """)
+    i    if st.session_state.lang == 'ro':
+        st.markdown("""
+        <div style="background: #f0f4ff; border-radius: 12px; padding: 25px; border: 1px solid #d0d8ff; margin-top: 10px;">
+            <h4 style="margin-top: 0;">🚀 Cum incepi?</h4>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configureaza parametrii</strong> in panoul din stanga (Alpha, Delta, Toleranta initiala)</td></tr>
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Acceseaza tab-ul <strong>📊 Optimizare</strong> si apasa <strong>▶️ Ruleaza optimizarea</strong></td></tr>
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Exploreaza <strong>rezultatele</strong>: tolerante optime, grafice, Monte Carlo, comparatii</td></tr>
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Studiaza <strong>📐 matematica</strong> din spatele sistemului in tab-ul dedicat</td></tr>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.info("""
-        ### 🚀 How to Start
-        1. **Configure parameters** in the left panel
-        2. **Go to the Optimization tab** and press **Run Optimization**
-        3. **Explore the results** — tolerances, charts, Monte Carlo, comparisons
-        4. **Study the mathematics** behind the system in the dedicated tab
-        """)
+        st.markdown("""
+        <div style="background: #f0f4ff; border-radius: 12px; padding: 25px; border: 1px solid #d0d8ff; margin-top: 10px;">
+            <h4 style="margin-top: 0;">🚀 How to Start</h4>
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">1️⃣</td><td style="padding: 6px 0;"><strong>Configure parameters</strong> in the left panel (Alpha, Delta, Initial Tolerance)</td></tr>
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">2️⃣</td><td style="padding: 6px 0;">Go to the <strong>📊 Optimization</strong> tab and press <strong>▶️ Run Optimization</strong></td></tr>
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">3️⃣</td><td style="padding: 6px 0;">Explore the <strong>results</strong>: optimal tolerances, charts, Monte Carlo, comparisons</td></tr>
+                <tr><td style="padding: 6px 10px; font-size: 1.1rem;">4️⃣</td><td style="padding: 6px 0;">Study the <strong>📐 mathematics</strong> behind the system in the dedicated tab</td></tr>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
 # ================================================================
 # TAB 2: OPTIMIZARE
 # ================================================================
