@@ -129,17 +129,44 @@ with st.sidebar:
     run = st.button(t['run'], type="primary", use_container_width=True)
 
 # ---------- Dark theme ----------
+# ---------- Dark theme ----------
 if st.session_state.theme == 'dark':
-    st.markdown("""<style>.stApp { background-color: #0e1117; color: #fafafa; }</style>""", unsafe_allow_html=True)
-
-# ---------- CSS tab-uri ----------
-st.markdown("""
-<style>
-    .stTabs [data-baseweb="tab-list"] { gap: 6px; background-color: #f0f2f6; border-radius: 10px; padding: 6px; }
-    .stTabs [data-baseweb="tab"] { border-radius: 8px; padding: 6px 18px; font-size: 15px; font-weight: 500; }
-    .stTabs [aria-selected="true"] { background-color: #ffffff; box-shadow: 0 1px 6px rgba(0,0,0,0.08); }
-</style>
-""", unsafe_allow_html=True)
+    st.markdown("""
+    <style>
+        .stApp { background-color: #0e1117; color: #fafafa; }
+        
+        /* Carduri si containere */
+        div[style*="background: #f8f9fa"] {
+            background-color: #1a1c23 !important;
+            border-color: #2d3139 !important;
+        }
+        div[style*="border-left: 4px solid #667eea"] {
+            background-color: #1a1c23 !important;
+        }
+        
+        /* Text in carduri */
+        div[style*="background: #f8f9fa"] p,
+        div[style*="background: #f8f9fa"] h2,
+        div[style*="border-left: 4px solid #667eea"] p {
+            color: #e0e0e0 !important;
+        }
+        
+        /* Titluri */
+        h1, h2, h3, h4 { color: #fafafa !important; }
+        p { color: #cccccc !important; }
+        
+        /* Tabele */
+        .stDataFrame { background-color: #1a1c23 !important; }
+        .stDataFrame th { background-color: #2d3139 !important; color: #fafafa !important; }
+        .stDataFrame td { background-color: #1a1c23 !important; color: #e0e0e0 !important; }
+        
+        /* Info box */
+        .stAlert { background-color: #1a1c23 !important; color: #e0e0e0 !important; }
+        
+        /* Blockquote */
+        blockquote { background-color: #1a1c23 !important; border-left-color: #667eea !important; color: #e0e0e0 !important; }
+    </style>
+    """, unsafe_allow_html=True)
 
 # ---------- Tab-uri ----------
 tab1, tab2, tab3, tab4, tab5 = st.tabs([t['tab1'], t['tab2'], t['tab3'], t['tab4'], t['tab5']])
