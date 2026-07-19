@@ -683,46 +683,36 @@ with tab5:
         </div>
         """, unsafe_allow_html=True)
     
-         # ---------- TAB 5.3: SUBGRADIENTUL ----------
+             # ---------- TAB 5.3: SUBGRADIENTUL ----------
     with tm3:
         st.markdown("### 3. " + ("Subgradientul" if st.session_state.lang == 'ro' else "Subgradient"))
         if st.session_state.lang == 'ro':
             st.markdown("""
-            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
-                <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Obiectiv:</strong> Functia <i>f(X) = min(J₁, J₂)</i> nu este diferentiabila cand <i>J₁ = J₂</i>.
-                Conceptul de subgradient (Rockafellar, 1970) rezolva aceasta problema.
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-            st.markdown("**Definitie.** Subdiferentiala functiei <i>f</i> in punctul <i>X</i> este multimea:")
+            **Problema:** Functia $f(X) = \\min(J_1, J_2)$ nu este diferentiabila cand $J_1 = J_2$.
+            
+            **Solutia:** Subgradientul (Rockafellar, 1970). Subdiferentiala lui $f$ in $X$ este:
+            """)
             st.latex(r"\partial f(X) = \text{conv}\{\nabla J_i(X) : i \in \mathcal{A}(X)\}")
-            st.markdown("unde *A(X)* = multimea functiilor active (cele care ating minimul in X).")
             st.markdown("""
-            <br>
-            <strong>Cazuri practice:</strong><br>
-            • <strong>Cazul 1:</strong> Un singur <i>Jᵢ</i> activ → gradientul sau este subgradientul<br>
-            • <strong>Cazul 2:</strong> <i>J₁ = J₂</i> → orice combinatie convexa a gradientilor<br>
-            • <strong>Cand <i>d = 0</i>:</strong> Regularizare <i>d ← max(d, 10⁻⁸)</i>
+            unde $\\mathcal{A}(X)$ = functiile care ating minimul in $X$.
+            
+            **Cazul 1:** Un singur $J_i$ activ → gradientul sau.
+            **Cazul 2:** $J_1 = J_2$ → orice combinatie convexa a gradientilor.
+            **Cand $d=0$:** Regularizare $d \\leftarrow \\max(d, 10^{-8})$.
             """)
         else:
             st.markdown("""
-            <div style="background: rgba(128,128,128,0.06); border-radius: 10px; padding: 20px; margin: 15px 0;">
-                <p style="font-size: 1rem; line-height: 1.7;">
-                <strong>Objective:</strong> The function <i>f(X) = min(J₁, J₂)</i> is non-differentiable when <i>J₁ = J₂</i>.
-                The subgradient concept (Rockafellar, 1970) solves this problem.
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-            st.markdown("**Definition.** The subdifferential of <i>f</i> at point <i>X</i> is the set:")
+            **Problem:** $f(X) = \\min(J_1, J_2)$ is non-differentiable when $J_1 = J_2$.
+            
+            **Solution:** Subgradient (Rockafellar, 1970). The subdifferential of $f$ at $X$ is:
+            """)
             st.latex(r"\partial f(X) = \text{conv}\{\nabla J_i(X) : i \in \mathcal{A}(X)\}")
-            st.markdown("where *A(X)* = set of active functions (those attaining the minimum at X).")
             st.markdown("""
-            <br>
-            <strong>Practical cases:</strong><br>
-            • <strong>Case 1:</strong> Single active <i>Jᵢ</i> → its gradient is the subgradient<br>
-            • <strong>Case 2:</strong> <i>J₁ = J₂</i> → any convex combination of gradients<br>
-            • <strong>When <i>d = 0</i>:</strong> Regularization <i>d ← max(d, 10⁻⁸)</i>
+            where $\\mathcal{A}(X)$ = active functions at $X$.
+            
+            **Case 1:** Single active $J_i$ → its gradient.
+            **Case 2:** $J_1 = J_2$ → any convex combination of gradients.
+            **When $d=0$:** Regularize $d \\leftarrow \\max(d, 10^{-8})$.
             """)
         st.markdown("""
         <div style="background: rgba(102,126,234,0.1); border-left: 3px solid #667eea; border-radius: 0 8px 8px 0; padding: 10px 15px; margin-top: 15px;">
