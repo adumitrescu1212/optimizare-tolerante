@@ -157,7 +157,7 @@ with tab1:
         """, unsafe_allow_html=True)
         st.markdown("""
         <div style="display: flex; justify-content: center;">
-            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
+            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700"> 
                  width="700" 
                  style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
         </div>
@@ -181,7 +181,7 @@ with tab1:
         """, unsafe_allow_html=True)
         st.markdown("""
         <div style="display: flex; justify-content: center;">
-            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" 
+            <img src="https://raw.githubusercontent.com/adumitrescu1212/optimizare-tolerante/main/ansamblu.gif" width="700">
                  width="700" 
                  style="border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
         </div>
